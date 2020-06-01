@@ -1,7 +1,7 @@
 .Palette {
-	padding: 2rem;
 }
 .Palette__movies {
+	padding: 2rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
 	grid-gap: 2rem;

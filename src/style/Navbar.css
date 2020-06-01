@@ -1,0 +1,16 @@
+.Navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2rem 2rem;
+	z-index: 1;
+	width: 100%;
+	opacity: 0.9;
+	margin-bottom: 1rem;
+	background-color: rgb(22, 34, 87);
+}
+
+.logo__link {
+	color: white;
+	font-size: 2.5rem;
+}

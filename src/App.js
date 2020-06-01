@@ -6,7 +6,7 @@ import "./style/App.css";
 function App() {
 	return (
 		<div className="App">
-			<MoviePalette {...seedMovies[0]} />
+			<MoviePalette {...seedMovies[1]} />
 		</div>
 	);
 }
