@@ -11,11 +11,13 @@ export default class MovieBox extends Component {
 		const transformedTitle = StringTrimmer.removeParenthesesAndReturn(title);
 		return (
 			<div className="MovieBox">
-				<img
-					className="MovieBox__image"
-					src={`${imageUrl}`}
-					alt="Movie Poster"
-				/>
+				<div className="MovieBox__img-container">
+					<img
+						className="MovieBox__img"
+						src={`${imageUrl}`}
+						alt="Movie Poster"
+					/>
+				</div>
 				<div className="MovieBox__text">
 					<p className="MovieBox__title">{transformedTitle}</p>
 					<span className="MovieBox__date">{date}</span>
