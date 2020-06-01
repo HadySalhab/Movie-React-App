@@ -1,0 +1,21 @@
+.MovieBox {
+}
+.MovieBox__image {
+	object-fit: fill;
+	border-radius: 10px;
+	width: 100%;
+}
+
+.MovieBox__text {
+	padding: 0 1rem;
+}
+.MovieBox__title {
+	font-weight: 700;
+	font-size: 1.5rem;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.MovieBox__date {
+	font-size: 1.3rem;
+}

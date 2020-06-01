@@ -1,12 +1,12 @@
 import React from "react";
-import Palette from "./components/Palette";
+import MoviePalette from "./components/Palette";
 import seedMovies from "./data/seedMovies";
-import "./App.css";
+import "./style/App.css";
 
 function App() {
 	return (
 		<div className="App">
-			<Palette {...seedMovies[0]} />
+			<MoviePalette {...seedMovies[0]} />
 		</div>
 	);
 }
