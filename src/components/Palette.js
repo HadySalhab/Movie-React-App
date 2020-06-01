@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import "../style/Palette.css";
 export default class Palette extends Component {
 	render() {
-		const { movies } = this.props;
+		const { movies, paletteName } = this.props;
 
 		const movieBoxes = movies.map((movie) => (
 			<MovieBox
@@ -17,7 +17,7 @@ export default class Palette extends Component {
 		));
 		return (
 			<div className="Palette">
-				<Navbar />
+				<Navbar title={paletteName} />
 				<div className="Palette__movies">{movieBoxes}</div>
 			</div>
 		);
