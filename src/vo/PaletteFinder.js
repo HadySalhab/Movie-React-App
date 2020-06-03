@@ -5,6 +5,9 @@ class PaletteFinder {
 			return palette.id === paletteId;
 		});
 	}
+	getAllPalettes() {
+		return seedMovies;
+	}
 }
 
 export default new PaletteFinder();

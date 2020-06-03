@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -15,7 +16,11 @@ export default class Navbar extends Component {
 		const { title, sortBy } = this.props;
 		return (
 			<header className="Navbar">
-				<h1 className="logo">{title}</h1>
+				<h1>
+					<Link className="logo" to="/">
+						Movie Palette
+					</Link>
+				</h1>
 				<Select value={sortBy} onChange={this.onSortChange}>
 					<MenuItem value="original">Original</MenuItem>
 					<MenuItem value="popularity">By Popularity</MenuItem>
