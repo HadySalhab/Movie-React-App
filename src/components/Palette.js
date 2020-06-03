@@ -12,7 +12,7 @@ export default class Palette extends Component {
 			sortBy: "original",
 			isSnackbarOpen: false,
 		};
-		this.movieSorter = new MovieSorter(props.movies);
+		this.movieSorter = new MovieSorter(props.palette.movies);
 		this.onSortChange = this.onSortChange.bind(this);
 		this.closeSnackbar = this.closeSnackbar.bind(this);
 	}
@@ -29,7 +29,8 @@ export default class Palette extends Component {
 	}
 	render() {
 		const { sortBy, isSnackbarOpen } = this.state;
-		const { movies, paletteName, emoji } = this.props;
+		const { palette } = this.props;
+		const { movies, paletteName, emoji } = palette;
 		const sortedMovies = this.movieSorter.sortMoviesBy(sortBy);
 
 		const movieBoxes = sortedMovies.map((movie) => (

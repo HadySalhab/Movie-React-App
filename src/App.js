@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import MoviePalette from "./components/Palette";
-import seedMovies from "./data/seedMovies";
+import PaletteFinder from "./vo/PaletteFinder";
+import Palette from "./components/Palette";
 
 import "./style/App.css";
 
@@ -12,7 +12,11 @@ function App() {
 			<Route
 				exact
 				path="/palette/:id"
-				render={() => <h1>Individual Palette</h1>}
+				render={(routeProps) => (
+					<Palette
+						palette={PaletteFinder.findPaletteById(routeProps.match.params.id)}
+					/>
+				)}
 			/>
 			<Redirect to="/" />
 		</Switch>

@@ -350,7 +350,7 @@ export default [
 	},
 	{
 		paletteName: "Top Rated Movies",
-		id: "toprated-movies",
+		id: "top-rated-movies",
 		emoji: "🎨",
 		movies: [
 			{
