@@ -29,7 +29,7 @@ export default class Palette extends Component {
 	}
 	render() {
 		const { sortBy, isSnackbarOpen } = this.state;
-		const { movies, paletteName } = this.props;
+		const { movies, paletteName, emoji } = this.props;
 		const sortedMovies = this.movieSorter.sortMoviesBy(sortBy);
 
 		const movieBoxes = sortedMovies.map((movie) => (
@@ -49,6 +49,10 @@ export default class Palette extends Component {
 					sortBy={sortBy}
 				/>
 				<div className="Palette__movies">{movieBoxes}</div>
+				<footer className="Palette__footer">
+					{paletteName}
+					<span className="Palette__footer-emoji">{emoji}</span>
+				</footer>
 				<SnackbarMUI
 					sortBy={sortBy}
 					isSnackbarOpen={isSnackbarOpen}

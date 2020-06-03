@@ -1,8 +1,30 @@
 .Palette {
+	display: flex;
+	flex-direction: column;
 }
 .Palette__movies {
 	padding: 2rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
 	grid-gap: 2rem;
+	min-height: 100vh;
+}
+
+.Palette__footer {
+	padding: 2rem;
+	color: white;
+	font-size: 2.5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	font-weight: bold;
+	opacity: 0.9;
+	margin-top: 1rem;
+	background-color: rgb(22, 34, 87);
+	align-self: flex-end;
+	width: 100%;
+}
+.Palette__footer-emoji {
+	font-size: 3rem;
+	margin-left: 1rem;
 }
