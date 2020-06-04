@@ -7,7 +7,7 @@ const styles = {
 	root: {
 		display: "flex",
 		justifyContent: "center",
-		backgroundColor: "blue",
+		backgroundColor: "#282c34",
 		minHeight: "100vh",
 		alignItems: "flex-start",
 	},
@@ -36,6 +36,13 @@ const styles = {
 };
 
 class PaletteList extends Component {
+	constructor(props) {
+		super(props);
+		this.onMiniPaletteClicked = this.onMiniPaletteClicked.bind(this);
+	}
+	onMiniPaletteClicked(id) {
+		this.props.history.push(`/palette/${id}`);
+	}
 	render() {
 		const { classes, paletteList } = this.props;
 
@@ -47,7 +54,11 @@ class PaletteList extends Component {
 					</nav>
 					<div className={classes.palettes}>
 						{paletteList.map((palette) => (
-							<MiniPalette {...palette} />
+							<MiniPalette
+								{...palette}
+								key={palette.id}
+								onMiniPaletteClicked={this.onMiniPaletteClicked}
+							/>
 						))}
 					</div>
 				</div>

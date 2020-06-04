@@ -21,8 +21,11 @@ function App() {
 			<Route
 				exact
 				path="/"
-				render={() => (
-					<PaletteList paletteList={PaletteFinder.getAllPalettes()} />
+				render={(routeProps) => (
+					<PaletteList
+						{...routeProps}
+						paletteList={PaletteFinder.getAllPalettes()}
+					/>
 				)}
 			/>
 			<Redirect to="/" />

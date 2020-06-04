@@ -30,7 +30,7 @@ export default class Palette extends Component {
 	render() {
 		const { sortBy, isSnackbarOpen } = this.state;
 		const { palette } = this.props;
-		const { movies, paletteName, emoji } = palette;
+		const { paletteName, emoji } = palette;
 		const sortedMovies = this.movieSorter.sortMoviesBy(sortBy);
 
 		const movieBoxes = sortedMovies.map((movie) => (

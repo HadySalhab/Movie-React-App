@@ -5,7 +5,7 @@ import "../style/MovieBox.css";
 
 export default class MovieBox extends Component {
 	render() {
-		const { id, title, poster_path, date } = this.props;
+		const { title, poster_path, date } = this.props;
 		const imageUrl =
 			Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE + poster_path;
 		const transformedTitle = StringTrimmer.removeParenthesesAndReturn(title);
