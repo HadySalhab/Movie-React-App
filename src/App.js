@@ -4,6 +4,7 @@ import PaletteFinder from "./vo/PaletteFinder";
 import Palette from "./components/Palette";
 import PaletteList from "./components/PaletteList";
 import MovieDetail from "./components/MovieDetail";
+import NewPalette from "./components/NewPalette";
 import "./style/App.css";
 
 function App() {
@@ -14,6 +15,12 @@ function App() {
 				path="/movies/:movieName"
 				render={(routeProps) => <MovieDetail {...routeProps} />}
 			/>
+			<Route
+				exact
+				path="/palette/new"
+				render={(routeProps) => <NewPalette />}
+			/>
+
 			<Route
 				exact
 				path="/palette/:id"

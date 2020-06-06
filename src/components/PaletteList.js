@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
+
 import MiniPalette from "./MiniPalette";
 
 const styles = {
@@ -23,10 +24,16 @@ const styles = {
 		width: "100%",
 		justifyContent: "space-between",
 		color: "white",
+		alignItems: "center",
 		"& h1": {
 			textAlign: "center",
 			fontSize: "3rem",
 			margin: "2rem 0rem",
+		},
+		"& a": {
+			color: "white",
+			fontSize: "1.5rem",
+			textDecoration: "underline",
 		},
 	},
 	palettes: {
@@ -53,6 +60,7 @@ class PaletteList extends Component {
 				<div className={classes.container}>
 					<nav className={classes.nav}>
 						<h1>Movies Palette List</h1>
+						<Link to="/palette/new">Create Palette</Link>
 					</nav>
 					<div className={classes.palettes}>
 						{paletteList.map((palette) => (
