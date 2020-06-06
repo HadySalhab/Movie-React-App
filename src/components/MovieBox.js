@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 import Constants from "../data/Constants";
-import StringTrimmer from "../vo/StringTrimmer";
+import stringHelper from "../vo/StringHelper";
 import "../style/MovieBox.css";
 
 export default class MovieBox extends Component {
+	constructor(props) {
+		super(props);
+		this.onMovieBoxClicked = this.onMovieBoxClicked.bind(this);
+	}
+	onMovieBoxClicked() {
+		this.props.onMovieBoxClicked(this.props.id, this.props.title);
+	}
 	render() {
 		const { title, poster_path, date } = this.props;
 		const imageUrl =
 			Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE + poster_path;
-		const transformedTitle = StringTrimmer.removeParenthesesAndReturn(title);
+		const transformedTitle = stringHelper.removeParenthesesAndReturn(title);
 		return (
-			<div className="MovieBox">
+			<div className="MovieBox" onClick={this.onMovieBoxClicked}>
 				<div className="MovieBox__img-container">
 					<img
 						className="MovieBox__img"

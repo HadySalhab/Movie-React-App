@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import PaletteFinder from "./vo/PaletteFinder";
 import Palette from "./components/Palette";
 import PaletteList from "./components/PaletteList";
-
+import MovieDetail from "./components/MovieDetail";
 import "./style/App.css";
 
 function App() {
@@ -11,9 +11,15 @@ function App() {
 		<Switch>
 			<Route
 				exact
+				path="/movies/:movieName"
+				render={(routeProps) => <MovieDetail {...routeProps} />}
+			/>
+			<Route
+				exact
 				path="/palette/:id"
 				render={(routeProps) => (
 					<Palette
+						{...routeProps}
 						palette={PaletteFinder.findPaletteById(routeProps.match.params.id)}
 					/>
 				)}

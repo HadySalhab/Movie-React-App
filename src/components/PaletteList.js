@@ -25,6 +25,8 @@ const styles = {
 		color: "white",
 		"& h1": {
 			textAlign: "center",
+			fontSize: "3rem",
+			margin: "2rem 0rem",
 		},
 	},
 	palettes: {

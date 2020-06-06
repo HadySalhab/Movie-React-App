@@ -3,6 +3,7 @@ import SnackbarMUI from "./SnackbarMUI";
 import MovieBox from "./MovieBox";
 import Navbar from "./Navbar";
 import MovieSorter from "../vo/MovieSorter";
+import stringHelper from "../vo/StringHelper";
 import "../style/Palette.css";
 
 export default class Palette extends Component {
@@ -15,6 +16,13 @@ export default class Palette extends Component {
 		this.movieSorter = new MovieSorter(props.palette.movies);
 		this.onSortChange = this.onSortChange.bind(this);
 		this.closeSnackbar = this.closeSnackbar.bind(this);
+		this.onMovieBoxClicked = this.onMovieBoxClicked.bind(this);
+	}
+	onMovieBoxClicked(movieId, title) {
+		const noParentheses = stringHelper.removeParenthesesAndReturn(title);
+		const mMovieName = stringHelper.replaceWhiteSpacesWithDash(noParentheses);
+
+		this.props.history.push(`/movies/${movieId + "-" + mMovieName}`);
 	}
 	closeSnackbar() {
 		this.setState({
@@ -40,6 +48,7 @@ export default class Palette extends Component {
 				title={movie.title}
 				date={movie.release_date}
 				poster_path={movie.poster_path}
+				onMovieBoxClicked={this.onMovieBoxClicked}
 			/>
 		));
 		return (
