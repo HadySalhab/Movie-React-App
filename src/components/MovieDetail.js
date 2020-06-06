@@ -473,7 +473,7 @@ class MovieDetail extends Component {
 				</div>
 			);
 		} else {
-			return <div>Hello</div>;
+			return <div></div>;
 		}
 	}
 }

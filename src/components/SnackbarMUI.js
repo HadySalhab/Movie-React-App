@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+import { withStyles } from "@material-ui/styles";
 
-export default class SnackbarMUI extends Component {
+const styles = {
+	message: {
+		fontSize: "1.5rem",
+	},
+};
+
+class SnackbarMUI extends Component {
 	constructor(props) {
 		super(props);
 		this.closeSnackbar = this.closeSnackbar.bind(this);
@@ -12,14 +19,18 @@ export default class SnackbarMUI extends Component {
 		this.props.closeSnackbar();
 	}
 	render() {
-		const { sortBy, isSnackbarOpen } = this.props;
+		const { sortBy, isSnackbarOpen, classes } = this.props;
 		return (
 			<Snackbar
 				className="Snackbar"
 				anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
 				open={isSnackbarOpen}
-				autoHideDuration={2000}
-				message={<span id="message-id">Updated: By {sortBy}</span>}
+				autoHideDuration={10000}
+				message={
+					<span id="message-id" className={classes.message}>
+						Updated: By {sortBy}
+					</span>
+				}
 				ContentProps={{
 					"aria-describedby": "message-id",
 				}}
@@ -38,3 +49,4 @@ export default class SnackbarMUI extends Component {
 		);
 	}
 }
+export default withStyles(styles)(SnackbarMUI);

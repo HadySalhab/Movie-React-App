@@ -2,9 +2,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import { withStyles } from "@material-ui/styles";
 import "../style/Navbar.css";
-export default class Navbar extends Component {
+
+const styles = {
+	selectRoot: {
+		color: "white",
+		fontSize: "1.2rem",
+		padding: "1rem",
+	},
+	iconFilled: {
+		color: "white",
+	},
+};
+
+class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.onSortChange = this.onSortChange.bind(this);
@@ -13,7 +25,7 @@ export default class Navbar extends Component {
 		this.props.onSortChange(event.target.value);
 	}
 	render() {
-		const { title, sortBy } = this.props;
+		const { title, sortBy, classes } = this.props;
 		return (
 			<header className="Navbar">
 				<h1>
@@ -21,7 +33,15 @@ export default class Navbar extends Component {
 						Movie Palette
 					</Link>
 				</h1>
-				<Select value={sortBy} onChange={this.onSortChange}>
+				<Select
+					classes={{
+						root: classes.selectRoot,
+						iconFilled: classes.iconFilled,
+					}}
+					variant="filled"
+					value={sortBy}
+					onChange={this.onSortChange}
+				>
 					<MenuItem value="original">Original</MenuItem>
 					<MenuItem value="popularity">By Popularity</MenuItem>
 					<MenuItem value="vote">By Vote</MenuItem>
@@ -32,3 +52,4 @@ export default class Navbar extends Component {
 		);
 	}
 }
+export default withStyles(styles)(Navbar);

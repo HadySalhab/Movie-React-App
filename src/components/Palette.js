@@ -6,7 +6,7 @@ import MovieSorter from "../vo/MovieSorter";
 import stringHelper from "../vo/StringHelper";
 import "../style/Palette.css";
 
-export default class Palette extends Component {
+class Palette extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -72,3 +72,4 @@ export default class Palette extends Component {
 		);
 	}
 }
+export default Palette;
