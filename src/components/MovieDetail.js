@@ -3,9 +3,21 @@ import tmdbClient from "../vo/TmdbClient";
 import stringHelper from "../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import { CircularProgressbar } from "react-circular-progressbar";
+import Card from "@material-ui/core/Card";
+import ReactPlayer from "react-player";
+import CardContent from "@material-ui/core/CardContent";
+import YoutubeBtn from "./YoutubeBtn";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 import "react-circular-progressbar/dist/styles.css";
 
 const styles = {
+	container: {
+		maxWidth: "130rem",
+		margin: "0 auto",
+		overflow: "auto",
+		padding: "0 3rem",
+	},
 	header: {
 		color: "#D3D3D3",
 		width: "100%",
@@ -90,6 +102,82 @@ const styles = {
 		color: "#D3d3d3",
 		textDecoration: "underline",
 	},
+	cardContent: {
+		padding: ".5rem",
+		"&:last-child": {
+			padding: "1rem",
+		},
+	},
+	castSection: {
+		marginTop: "2rem",
+		"& h1": {
+			margin: "1rem 0rem",
+			fontSize: "2rem",
+			color: "rgba(0,0,0,0.7)",
+		},
+	},
+	casts: {
+		display: "grid",
+		gridTemplateColumns: "repeat(10, 15rem);",
+		overflowX: "scroll",
+		justifyContent: "flex-start",
+		gridGap: "1rem",
+	},
+	trailerSection: {
+		marginTop: "2rem",
+		"& h1": {
+			fontSize: "2rem",
+			color: "rgba(0,0,0,0.7)",
+			margin: "1rem 0rem",
+		},
+	},
+	trailers: {
+		display: "grid",
+		gridTemplateColumns: "repeat(2,1fr);",
+		justifyContent: "center",
+		gridGap: "1rem",
+	},
+	reviewSection: {
+		margin: "2rem 0",
+		"& h1": {
+			fontSize: "2rem",
+			color: "rgba(0,0,0,0.7)",
+			margin: "1rem 0rem",
+		},
+	},
+	reviews: {
+		padding: "2rem 2rem 2rem 0.1rem",
+		maxHeight: "30rem",
+		overflowY: "scroll",
+	},
+	reviewCard: {
+		marginBottom: "1rem",
+	},
+	reviewContent: {
+		"& h2": {
+			fontSize: "2rem",
+		},
+		"& p": {
+			fontSize: "1.5rem",
+		},
+	},
+	footer: {
+		padding: "2rem",
+		color: "white",
+		fontSize: "1.7rem",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		opacity: "0.9",
+		marginTop: "1rem",
+		backgroundColor: "#282c34",
+		alignSelf: "flex-end",
+		width: "100%",
+		"& a": {
+			color: "#D3D3D3",
+			textDecoration: "underline",
+		},
+	},
 };
 
 class MovieDetail extends Component {
@@ -127,12 +215,25 @@ class MovieDetail extends Component {
 				IMAGE_BASE_URL + IMAGE_BACKDROP_FILE_SIZE + movieDetail.backdrop_path;
 			const poster =
 				IMAGE_BASE_URL + IMAGE_POSTER_FILE_SIZE + movieDetail.poster_path;
+
 			const genreName = movieDetail.genres.map((genre) => {
 				return genre.name;
 			});
 
+			const castArr = movieDetail.credits.cast;
+			const crewArr = movieDetail.credits.crew;
+			const castArrWithImage = castArr.filter((cast) => {
+				return cast.profile_path !== null;
+			});
+			const visibleCast = castArrWithImage.slice(0, 10);
+			const director = crewArr.find((crew) => {
+				return crew.department === "Directing";
+			});
+			const writer = crewArr.find((crew) => {
+				return crew.department === "Writing";
+			});
 			return (
-				<div>
+				<div className={classes.root}>
 					<header
 						className={classes.header}
 						style={{
@@ -203,21 +304,21 @@ class MovieDetail extends Component {
 								</div>
 								<ul className={classes.list}>
 									<li className={classes.listItem}>
-										<i class="fas fa-user-circle"></i>
+										<i className="fas fa-user-circle"></i>
 										Adult: {movieDetail.adult ? "No" : "Yes"}
 									</li>
 									<li className={classes.listItem}>
 										<i
-											class="fas fa-money-check-alt"
+											className="fas fa-money-check-alt"
 											style={{ marginLeft: "-.3rem" }}
 										></i>
-										Budget:{" "}
+										Budget: $
 										{movieDetail.budget
 											.toString()
 											.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 									</li>
 									<li className={classes.listItem}>
-										<i class="fas fa-home"></i>
+										<i className="fas fa-home"></i>
 										Web:{" "}
 										<a
 											className={classes.homepage}
@@ -229,23 +330,133 @@ class MovieDetail extends Component {
 									</li>
 									<li className={classes.listItem}>
 										<i
-											class="fas fa-globe"
+											className="fas fa-globe"
 											style={{ marginLeft: "-.3rem" }}
 										></i>
-										Language: {movieDetail.spoken_languages[0].name}
+										Language: {movieDetail.original_language}
 									</li>
 									<li className={classes.listItem}>
-										<i class="far fa-clock"></i>
+										<i className="far fa-clock"></i>
 										Runtime: {movieDetail.runtime} Min
 									</li>
 									<li className={classes.listItem}>
-										<i class="fas fa-info"></i>
+										<i className="fas fa-info"></i>
 										Status: {movieDetail.status}
+									</li>
+									<li className={classes.listItem}>
+										<i class="fas fa-video"></i>
+										Director: {director.name}
+									</li>
+									<li className={classes.listItem}>
+										<i class="fas fa-marker"></i>
+										Writer: {writer.name}
 									</li>
 								</ul>
 							</div>
 						</div>
 					</header>
+					<div>
+						<div className={classes.container}>
+							<section className={classes.castSection}>
+								<h1>Top Cast</h1>
+								<div className={classes.casts}>
+									{visibleCast.map((cast) => (
+										<Card className={classes.card}>
+											<CardMedia
+												component="img"
+												alt="Contemplative Reptile"
+												height="140"
+												image={
+													IMAGE_BASE_URL +
+													"w276_and_h350_face/" +
+													cast.profile_path
+												}
+												title="Contemplative Reptile"
+											/>
+											<CardContent
+												classes={{
+													root: classes.cardContent,
+												}}
+											>
+												<Typography gutterBottom variant="h5" component="h2">
+													{cast.character}
+												</Typography>
+												<Typography
+													variant="body2"
+													color="textSecondary"
+													component="p"
+												>
+													{cast.name}
+												</Typography>
+											</CardContent>
+										</Card>
+									))}
+								</div>
+							</section>
+							<section className={classes.trailerSection}>
+								<h1>Trailers</h1>
+								<div className={classes.trailers}>
+									{movieDetail.videos.results.slice(0, 4).map((video) => (
+										<div
+											style={{
+												position: "relative",
+											}}
+										>
+											<img
+												src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+												style={{
+													width: "100%",
+												}}
+												alt=""
+											/>
+											<i
+												class="fab fa-youtube fa-7x"
+												style={{
+													position: "absolute",
+													top: "50%",
+													left: "50%",
+													transform: "translate(-50%,-50%)",
+													color: "#c4302b",
+												}}
+											></i>
+										</div>
+									))}
+								</div>
+							</section>
+							<section className={classes.reviewSection}>
+								<h1>Reviews</h1>
+								<div className={classes.reviews}>
+									{movieDetail.reviews.results.map((review) => (
+										<Card className={classes.reviewCard}>
+											<CardContent
+												classes={{
+													root: classes.reviewContent,
+												}}
+											>
+												<Typography gutterBottom variant="h5" component="h2">
+													{review.author}
+												</Typography>
+												<Typography
+													variant="body2"
+													color="textSecondary"
+													component="p"
+												>
+													{review.content}
+												</Typography>
+											</CardContent>
+										</Card>
+									))}
+								</div>
+							</section>
+						</div>
+					</div>
+					<footer className={classes.footer}>
+						Created By: Hadi Joseph Salheb for self-development purposes,&nbsp;
+						<a href="https://www.themoviedb.org/" target="_blank">
+							{" "}
+							Credit to TMDB Api.
+						</a>
+					</footer>
 				</div>
 			);
 		} else {
