@@ -119,9 +119,10 @@ const styles = {
 	casts: {
 		display: "grid",
 		gridTemplateColumns: "repeat(10, 15rem);",
-		overflowX: "scroll",
+		overflowX: "auto",
 		justifyContent: "flex-start",
 		gridGap: "1rem",
+		padding: "1rem 0rem",
 	},
 	trailerSection: {
 		marginTop: "2rem",
@@ -148,7 +149,7 @@ const styles = {
 	reviews: {
 		padding: "2rem 2rem 2rem 0.1rem",
 		maxHeight: "30rem",
-		overflowY: "scroll",
+		overflowY: "auto",
 	},
 	reviewCard: {
 		marginBottom: "1rem",
@@ -343,111 +344,123 @@ class MovieDetail extends Component {
 										<i className="fas fa-info"></i>
 										Status: {movieDetail.status}
 									</li>
-									<li className={classes.listItem}>
-										<i class="fas fa-video"></i>
-										Director: {director.name}
-									</li>
-									<li className={classes.listItem}>
-										<i class="fas fa-marker"></i>
-										Writer: {writer.name}
-									</li>
+									{director && (
+										<li className={classes.listItem}>
+											<i className="fas fa-video"></i>
+											Director: {director.name}
+										</li>
+									)}
+									{writer && (
+										<li className={classes.listItem}>
+											<i className="fas fa-marker"></i>
+											Writer: {writer.name}
+										</li>
+									)}
 								</ul>
 							</div>
 						</div>
 					</header>
 					<div>
 						<div className={classes.container}>
-							<section className={classes.castSection}>
-								<h1>Top Cast</h1>
-								<div className={classes.casts}>
-									{visibleCast.map((cast) => (
-										<Card className={classes.card}>
-											<CardMedia
-												component="img"
-												alt="Contemplative Reptile"
-												height="140"
-												image={
-													IMAGE_BASE_URL +
-													"w276_and_h350_face/" +
-													cast.profile_path
-												}
-												title="Contemplative Reptile"
-											/>
-											<CardContent
-												classes={{
-													root: classes.cardContent,
+							{visibleCast.length > 0 && (
+								<section className={classes.castSection}>
+									<h1>Top Cast</h1>
+									<div className={classes.casts}>
+										{visibleCast.map((cast) => (
+											<Card className={classes.card}>
+												<CardMedia
+													component="img"
+													alt="Contemplative Reptile"
+													height="140"
+													image={
+														IMAGE_BASE_URL +
+														"w276_and_h350_face/" +
+														cast.profile_path
+													}
+													title="Contemplative Reptile"
+												/>
+												<CardContent
+													classes={{
+														root: classes.cardContent,
+													}}
+												>
+													<Typography gutterBottom variant="h5" component="h2">
+														{cast.character}
+													</Typography>
+													<Typography
+														variant="body2"
+														color="textSecondary"
+														component="p"
+													>
+														{cast.name}
+													</Typography>
+												</CardContent>
+											</Card>
+										))}
+									</div>
+								</section>
+							)}
+
+							{movieDetail.videos.results.length > 0 && (
+								<section className={classes.trailerSection}>
+									<h1>Trailers</h1>
+									<div className={classes.trailers}>
+										{movieDetail.videos.results.slice(0, 4).map((video) => (
+											<div
+												style={{
+													position: "relative",
 												}}
 											>
-												<Typography gutterBottom variant="h5" component="h2">
-													{cast.character}
-												</Typography>
-												<Typography
-													variant="body2"
-													color="textSecondary"
-													component="p"
+												<img
+													src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+													style={{
+														width: "100%",
+													}}
+													alt=""
+												/>
+												<i
+													class="fab fa-youtube fa-7x"
+													style={{
+														position: "absolute",
+														top: "50%",
+														left: "50%",
+														transform: "translate(-50%,-50%)",
+														color: "#c4302b",
+													}}
+												></i>
+											</div>
+										))}
+									</div>
+								</section>
+							)}
+
+							{movieDetail.reviews.results.length > 0 && (
+								<section className={classes.reviewSection}>
+									<h1>Reviews</h1>
+									<div className={classes.reviews}>
+										{movieDetail.reviews.results.map((review) => (
+											<Card className={classes.reviewCard}>
+												<CardContent
+													classes={{
+														root: classes.reviewContent,
+													}}
 												>
-													{cast.name}
-												</Typography>
-											</CardContent>
-										</Card>
-									))}
-								</div>
-							</section>
-							<section className={classes.trailerSection}>
-								<h1>Trailers</h1>
-								<div className={classes.trailers}>
-									{movieDetail.videos.results.slice(0, 4).map((video) => (
-										<div
-											style={{
-												position: "relative",
-											}}
-										>
-											<img
-												src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
-												style={{
-													width: "100%",
-												}}
-												alt=""
-											/>
-											<i
-												class="fab fa-youtube fa-7x"
-												style={{
-													position: "absolute",
-													top: "50%",
-													left: "50%",
-													transform: "translate(-50%,-50%)",
-													color: "#c4302b",
-												}}
-											></i>
-										</div>
-									))}
-								</div>
-							</section>
-							<section className={classes.reviewSection}>
-								<h1>Reviews</h1>
-								<div className={classes.reviews}>
-									{movieDetail.reviews.results.map((review) => (
-										<Card className={classes.reviewCard}>
-											<CardContent
-												classes={{
-													root: classes.reviewContent,
-												}}
-											>
-												<Typography gutterBottom variant="h5" component="h2">
-													{review.author}
-												</Typography>
-												<Typography
-													variant="body2"
-													color="textSecondary"
-													component="p"
-												>
-													{review.content}
-												</Typography>
-											</CardContent>
-										</Card>
-									))}
-								</div>
-							</section>
+													<Typography gutterBottom variant="h5" component="h2">
+														{review.author}
+													</Typography>
+													<Typography
+														variant="body2"
+														color="textSecondary"
+														component="p"
+													>
+														{review.content}
+													</Typography>
+												</CardContent>
+											</Card>
+										))}
+									</div>
+								</section>
+							)}
 						</div>
 					</div>
 					<footer className={classes.footer}>
