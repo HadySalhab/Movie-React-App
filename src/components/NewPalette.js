@@ -108,7 +108,7 @@ export default function NewPalette(props) {
 	const theme = useTheme();
 	const [movies, setMovies] = useState([]);
 	const [paletteMovies, setPaletteMovies] = useState([]);
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(true);
 
 	const [infoAlert, setInfoAlert] = useState(false);
 	const [errorAlert, setErrorAlert] = useState(false);
