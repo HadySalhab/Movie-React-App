@@ -16,8 +16,9 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import tmdbClient from "../vo/TmdbClient";
 import MovieCard from "./MovieCard";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { useForm } from "react-hook-form";
+import StringHelper from "../vo/StringHelper";
 import PaletteFinder from "../vo/PaletteFinder";
-
 const drawerWidth = 450;
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `1rem calc(${drawerWidth}px*0.5 - 35rem*0.5)`,
+		padding: `1rem calc(${drawerWidth}px*0.5 - 30rem*0.5)`,
 	},
 	alert: {
 		gridRow: "2",
@@ -108,8 +109,17 @@ export default function NewPalette(props) {
 	const [movies, setMovies] = useState([]);
 	const [paletteMovies, setPaletteMovies] = useState([]);
 	const [open, setOpen] = useState(false);
-	const [input, setInput] = useState("");
+
 	const [alert, setAlert] = useState(false);
+
+	const {
+		clearError,
+		triggerValidation,
+		register,
+		getValues,
+		errors,
+		setValue,
+	} = useForm();
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -119,13 +129,9 @@ export default function NewPalette(props) {
 		setOpen(false);
 	};
 
-	const onInputChange = (e) => {
-		setInput(e.target.value);
-	};
-	const searchMovie = async () => {
-		setInput("");
+	const searchMovie = async (value) => {
 		setMovies([]);
-		const movies = await tmdbClient.searchMovie(input);
+		const movies = await tmdbClient.searchMovie(value);
 		setMovies(movies.results);
 	};
 	const handleLearnMore = (id) => {
@@ -168,14 +174,19 @@ export default function NewPalette(props) {
 		setMovies([]);
 	};
 	const savePalette = () => {
+		const paletteName = getValues("paletteNameInput");
 		const newPalette = {
-			paletteName: "New Test",
-			id: "new-test",
+			paletteName,
+			id: StringHelper.replaceWhiteSpacesWithDash(paletteName),
 			emoji: "🎨",
 			movies: paletteMovies,
 		};
 		PaletteFinder.addPalettesToSeed(newPalette);
 		props.history.push("/");
+	};
+
+	const isPaletteNameUnique = (pName) => {
+		return PaletteFinder.isPaletteNameUnique(pName);
 	};
 	useEffect(() => {
 		console.log(paletteMovies);
@@ -203,9 +214,43 @@ export default function NewPalette(props) {
 					<Typography variant="h6" noWrap>
 						Persistent drawer
 					</Typography>
-					<Button variant="contained" color="secondary" onClick={savePalette}>
-						Save Palette
-					</Button>
+					{/* onSubmit={handleSubmit(savePalette)} */}
+					<form>
+						{/* include validation with required or other standard HTML validation rules */}
+						<input
+							name="paletteNameInput"
+							ref={register({
+								required: true,
+								validate: isPaletteNameUnique,
+							})}
+						/>
+						{/* errors will return when field validation fails  */}
+						{errors.paletteNameInput?.type === "required" && (
+							<span>This field is required</span>
+						)}
+						{errors.paletteNameInput?.type === "validate" && (
+							<span>Palette Name Taken</span>
+						)}
+
+						<Button
+							type="button"
+							variant="contained"
+							color="secondary"
+							onClick={async (e) => {
+								const result = await triggerValidation("paletteNameInput");
+								if (result) {
+									savePalette();
+								} else {
+									setTimeout(() => {
+										clearError();
+									}, 2000);
+									console.log("not working");
+								}
+							}}
+						>
+							Save Palette
+						</Button>
+					</form>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -228,17 +273,40 @@ export default function NewPalette(props) {
 				</div>
 				<Divider />
 				<Typography variant="h2">Search Your Movie</Typography>
-				<ValidatorForm onSubmit={searchMovie}>
-					<TextValidator
-						value={input}
-						onChange={onInputChange}
-						validators={["required"]}
-						errorMessages={["this field is required"]}
+				{/* onSubmit={handleSubmit(savePalette)} */}
+				<form>
+					{/* include validation with required or other standard HTML validation rules */}
+					<input
+						name="searchInput"
+						ref={register({
+							required: true,
+						})}
 					/>
-					<Button type="submit" variant="contained" color="primary">
-						Submit
+					{/* errors will return when field validation fails  */}
+					{errors.searchInput?.type === "required" && (
+						<span>This field is required</span>
+					)}
+					<Button
+						type="button"
+						variant="contained"
+						color="secondary"
+						onClick={async () => {
+							const result = await triggerValidation("searchInput");
+							if (result) {
+								const value = getValues("searchInput");
+								searchMovie(value);
+								setValue("searchInput", "");
+							} else {
+								setTimeout(() => {
+									clearError();
+								}, 2000);
+								console.log("not working");
+							}
+						}}
+					>
+						Save Palette
 					</Button>
-				</ValidatorForm>
+				</form>
 
 				<Button
 					variant="contained"

@@ -11,6 +11,9 @@ class PaletteFinder {
 	addPalettesToSeed(palette) {
 		seedMovies.push(palette);
 	}
+	isPaletteNameUnique(paletteName) {
+		return !seedMovies.some((palette) => palette.paletteName === paletteName);
+	}
 }
 
 export default new PaletteFinder();
