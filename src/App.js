@@ -4,7 +4,7 @@ import PaletteFinder from "./vo/PaletteFinder";
 import Palette from "./components/Palette";
 import PaletteList from "./components/PaletteList";
 import MovieDetail from "./components/MovieDetail";
-import NewPalette from "./components/NewPalette";
+import NewPalette from "./page/new-palette/NewPalette";
 import "./style/App.css";
 
 function App() {

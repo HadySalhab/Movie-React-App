@@ -8,6 +8,7 @@ const styles = {
 		border: "1px solid black",
 		padding: "0.5rem",
 		position: "relative",
+		minHeight: "34rem",
 		overflow: "hidden",
 		"&:hover": {
 			cursor: "pointer",
