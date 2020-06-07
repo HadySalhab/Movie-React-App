@@ -6,14 +6,14 @@ const styles = {
 		height: "85px",
 		width: "20%",
 		display: "inline-block",
-		margin: "0 auto",
+
 		position: "relative",
 	},
 };
 function MiniMovie(props) {
 	const { poster_path, classes } = props;
 	const imageUrl =
-		Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE + poster_path;
+		Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE_W185 + poster_path;
 	return (
 		<div
 			className={classes.root}

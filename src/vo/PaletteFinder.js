@@ -8,6 +8,9 @@ class PaletteFinder {
 	getAllPalettes() {
 		return seedMovies;
 	}
+	addPalettesToSeed(palette) {
+		seedMovies.push(palette);
+	}
 }
 
 export default new PaletteFinder();

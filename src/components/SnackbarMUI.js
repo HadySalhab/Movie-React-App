@@ -25,7 +25,7 @@ class SnackbarMUI extends Component {
 				className="Snackbar"
 				anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
 				open={isSnackbarOpen}
-				autoHideDuration={10000}
+				autoHideDuration={3000}
 				message={
 					<span id="message-id" className={classes.message}>
 						Updated: By {sortBy}

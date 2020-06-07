@@ -58,7 +58,12 @@ class Palette extends Component {
 					onSortChange={this.onSortChange}
 					sortBy={sortBy}
 				/>
-				<div className="Palette__movies">{movieBoxes}</div>
+				<div className="Palette__movies-wrapper">
+					<div className="Palette__movies">
+						<div className="Palette__drawer-header"></div>
+						{movieBoxes}
+					</div>
+				</div>
 				<footer className="Palette__footer">
 					{paletteName}
 					<span className="Palette__footer-emoji">{emoji}</span>

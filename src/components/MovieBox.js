@@ -14,7 +14,7 @@ export default class MovieBox extends Component {
 	render() {
 		const { title, poster_path, date } = this.props;
 		const imageUrl =
-			Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE + poster_path;
+			Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE_W185 + poster_path;
 		const transformedTitle = stringHelper.removeParenthesesAndReturn(title);
 		return (
 			<div className="MovieBox" onClick={this.onMovieBoxClicked}>

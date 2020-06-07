@@ -12,16 +12,8 @@ const styles = {
 		"&:hover": {
 			cursor: "pointer",
 		},
-	},
-	title: {
 		display: "flex",
-		justifyContent: "space-between",
-		alignItems: "center",
-		margin: "0",
-		color: "black",
-		paddingTop: ".5rem",
-		fontSize: "1.5rem",
-		position: "relative",
+		flexDirection: "column",
 	},
 	movies: {
 		display: "flex",
@@ -31,6 +23,20 @@ const styles = {
 		borderRadius: "5px",
 		overflow: "hidden",
 	},
+
+	text: {
+		marginTop: "auto",
+	},
+	title: {
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center",
+		color: "black",
+		paddingTop: ".5rem",
+		fontSize: "1.5rem",
+		position: "relative",
+	},
+
 	emoji: {
 		marginLeft: "0.5rem",
 		fontSize: "1.5rem",
@@ -62,10 +68,12 @@ class MiniPalette extends Component {
 		return (
 			<div className={classes.root} onClick={this.onMiniPaletteClicked}>
 				<div className={classes.movies}>{miniMovieBoxes}</div>
-				<h5 className={classes.title}>
-					{paletteName}
-					<span className={classes.emoji}>{emoji}</span>
-				</h5>
+				<div className={classes.text}>
+					<h5 className={classes.title}>
+						{paletteName}
+						<span className={classes.emoji}>{emoji}</span>
+					</h5>
+				</div>
 			</div>
 		);
 	}
