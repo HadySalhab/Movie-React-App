@@ -110,7 +110,8 @@ export default function NewPalette(props) {
 	const [paletteMovies, setPaletteMovies] = useState([]);
 	const [open, setOpen] = useState(false);
 
-	const [alert, setAlert] = useState(false);
+	const [infoAlert, setInfoAlert] = useState(false);
+	const [errorAlert, setErrorAlert] = useState(false);
 
 	const {
 		clearError,
@@ -147,9 +148,9 @@ export default function NewPalette(props) {
 	const addMovieToPalette = (id) => {
 		const isMovieInPalette = paletteMovies.some((movie) => movie.id === id);
 		if (isMovieInPalette) {
-			setAlert(true);
+			setInfoAlert(true);
 			setTimeout(() => {
-				setAlert(false);
+				setInfoAlert(false);
 			}, 2000);
 		} else {
 			const movie = movies.find((mov) => mov.id === id);
@@ -174,6 +175,14 @@ export default function NewPalette(props) {
 		setMovies([]);
 	};
 	const savePalette = () => {
+		if (paletteMovies.length === 0) {
+			setErrorAlert(true);
+			setTimeout(() => {
+				setErrorAlert(false);
+			}, 2000);
+			return;
+		}
+
 		const paletteName = getValues("paletteNameInput");
 		const newPalette = {
 			paletteName,
@@ -182,6 +191,7 @@ export default function NewPalette(props) {
 			movies: paletteMovies,
 		};
 		PaletteFinder.addPalettesToSeed(newPalette);
+		setValue("paletteNameInput", "");
 		props.history.push("/");
 	};
 
@@ -214,8 +224,20 @@ export default function NewPalette(props) {
 					<Typography variant="h6" noWrap>
 						Persistent drawer
 					</Typography>
-					{/* onSubmit={handleSubmit(savePalette)} */}
-					<form>
+
+					<form
+						onSubmit={async (e) => {
+							e.preventDefault();
+							const result = await triggerValidation("paletteNameInput");
+							if (result) {
+								savePalette();
+							} else {
+								setTimeout(() => {
+									clearError();
+								}, 2000);
+							}
+						}}
+					>
 						{/* include validation with required or other standard HTML validation rules */}
 						<input
 							name="paletteNameInput"
@@ -232,22 +254,7 @@ export default function NewPalette(props) {
 							<span>Palette Name Taken</span>
 						)}
 
-						<Button
-							type="button"
-							variant="contained"
-							color="secondary"
-							onClick={async (e) => {
-								const result = await triggerValidation("paletteNameInput");
-								if (result) {
-									savePalette();
-								} else {
-									setTimeout(() => {
-										clearError();
-									}, 2000);
-									console.log("not working");
-								}
-							}}
-						>
+						<Button type="submit" variant="contained" color="secondary">
 							Save Palette
 						</Button>
 					</form>
@@ -274,8 +281,22 @@ export default function NewPalette(props) {
 				<Divider />
 				<Typography variant="h2">Search Your Movie</Typography>
 				{/* onSubmit={handleSubmit(savePalette)} */}
-				<form>
-					{/* include validation with required or other standard HTML validation rules */}
+				<form
+					onSubmit={async (e) => {
+						e.preventDefault();
+						const result = await triggerValidation("searchInput");
+						if (result) {
+							const value = getValues("searchInput");
+							searchMovie(value);
+							setValue("searchInput", "");
+						} else {
+							setTimeout(() => {
+								clearError();
+							}, 2000);
+							console.log("not working");
+						}
+					}}
+				>
 					<input
 						name="searchInput"
 						ref={register({
@@ -286,24 +307,7 @@ export default function NewPalette(props) {
 					{errors.searchInput?.type === "required" && (
 						<span>This field is required</span>
 					)}
-					<Button
-						type="button"
-						variant="contained"
-						color="secondary"
-						onClick={async () => {
-							const result = await triggerValidation("searchInput");
-							if (result) {
-								const value = getValues("searchInput");
-								searchMovie(value);
-								setValue("searchInput", "");
-							} else {
-								setTimeout(() => {
-									clearError();
-								}, 2000);
-								console.log("not working");
-							}
-						}}
-					>
+					<Button type="submit" variant="contained" color="secondary">
 						Save Palette
 					</Button>
 				</form>
@@ -348,7 +352,7 @@ export default function NewPalette(props) {
 				})}
 			>
 				<div className={classes.drawerHeader}></div>
-				{alert && (
+				{infoAlert && (
 					<Alert
 						classes={{
 							root: classes.alert,
@@ -357,6 +361,17 @@ export default function NewPalette(props) {
 						severity="info"
 					>
 						Movie Already Added To Palette
+					</Alert>
+				)}
+				{errorAlert && (
+					<Alert
+						classes={{
+							root: classes.alert,
+							message: classes.alertMessage,
+						}}
+						severity="error"
+					>
+						Empty Palette Cannot Be Saved!
 					</Alert>
 				)}
 
