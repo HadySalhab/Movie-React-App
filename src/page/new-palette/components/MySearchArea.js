@@ -81,6 +81,7 @@ function MySearchArea({
 			<Typography variant="h2">Search Your Movie</Typography>
 			<form className={classes.form} onSubmit={handleSubmit}>
 				<input
+					disabled={paletteMovies.length >= 20}
 					className={classes.input}
 					name="searchInput"
 					ref={register({
@@ -95,6 +96,7 @@ function MySearchArea({
 					fullWidth={true}
 					type="submit"
 					variant="contained"
+					disabled={paletteMovies.length >= 20}
 					color="secondary"
 					classes={{
 						root: classes.btnPrimary,
