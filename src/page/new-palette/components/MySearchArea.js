@@ -26,6 +26,7 @@ function MySearchArea({
 		<div className={classes.searchArea}>
 			<Typography variant="h2">Search Your Movie</Typography>
 			<form
+				className={classes.form}
 				onSubmit={async (e) => {
 					e.preventDefault();
 					const result = await triggerValidation("searchInput");
@@ -42,6 +43,7 @@ function MySearchArea({
 				}}
 			>
 				<input
+					className={classes.input}
 					name="searchInput"
 					ref={register({
 						required: true,
@@ -56,29 +58,40 @@ function MySearchArea({
 					type="submit"
 					variant="contained"
 					color="secondary"
+					classes={{
+						root: classes.btnPrimary,
+						label: classes.btnPrimaryLabel,
+					}}
 				>
 					Search Movie
 				</Button>
 			</form>
-
-			<Button
-				variant="contained"
-				color="secondary"
-				disabled={paletteMovies.length === 0}
-				onClick={clearPalette}
-			>
-				Clear Palette
-			</Button>
-
-			<Button
-				variant="contained"
-				color="secondary"
-				disabled={movies.length === 0}
-				onClick={clearResults}
-			>
-				Clear Results
-			</Button>
-
+			<div className={classes.btnContainer}>
+				<Button
+					variant="contained"
+					color="secondary"
+					disabled={movies.length === 0}
+					onClick={clearResults}
+					classes={{
+						root: classes.btnResults,
+						label: classes.btnResultsLabel,
+					}}
+				>
+					Clear Results
+				</Button>
+				<Button
+					variant="contained"
+					color="secondary"
+					disabled={paletteMovies.length === 0}
+					onClick={clearPalette}
+					classes={{
+						root: classes.btnPalette,
+						label: classes.btnPaletteLabel,
+					}}
+				>
+					Clear Palette
+				</Button>
+			</div>
 			<div className={classes.results}>
 				{movies.length > 0 &&
 					movies.map((movie) => (

@@ -419,7 +419,7 @@ class MovieDetail extends Component {
 													alt=""
 												/>
 												<i
-													class="fab fa-youtube fa-7x"
+													className="fab fa-youtube fa-7x"
 													style={{
 														position: "absolute",
 														top: "50%",
