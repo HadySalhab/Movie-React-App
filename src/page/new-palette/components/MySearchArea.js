@@ -5,6 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import useStyles from "../style/MySearchAreaStyle";
 import MovieCard from "./MovieCard";
 import tmdbClient from "../../../vo/TmdbClient";
+import Alert from "@material-ui/lab/Alert";
 import { useForm } from "react-hook-form";
 
 function MySearchArea({
@@ -16,13 +17,35 @@ function MySearchArea({
 	const classes = useStyles();
 	const [movies, setMovies] = useState([]);
 	const [loading, isLoading] = useState(false);
+	const [infoAlert, setInfoAlert] = useState(false);
+	const [errorAlert, setErrorAlert] = useState(false);
 
 	const searchMovie = async (value) => {
-		setMovies([]);
-		isLoading(true);
-		const movies = await tmdbClient.searchMovie(value);
-		setMovies(movies.results);
+		showLoadingState();
+		let searchMovie;
+		try {
+			searchMovie = await tmdbClient.searchMovie(value);
+			setMovies(searchMovie.results);
+			if (searchMovie.results.length === 0) {
+				setInfoAlert(true);
+				setTimeout(() => {
+					setInfoAlert(false);
+				}, 3000);
+			}
+		} catch (err) {
+			setErrorAlert(true);
+			setTimeout(() => {
+				setErrorAlert(false);
+			}, 3000);
+		}
 		isLoading(false);
+	};
+	//reset
+	const showLoadingState = () => {
+		setMovies([]);
+		setErrorAlert(false);
+		setInfoAlert(false);
+		isLoading(true);
 	};
 
 	const clearResults = () => {
@@ -107,13 +130,36 @@ function MySearchArea({
 					Clear Palette
 				</Button>
 			</div>
-			{loading ? (
+			{loading && (
 				<CircularProgress
 					classes={{
 						root: classes.circularProgress,
 					}}
 				/>
-			) : (
+			)}
+			{infoAlert && (
+				<Alert
+					classes={{
+						root: classes.alert,
+						message: classes.alertMessage,
+					}}
+					severity="info"
+				>
+					Cannot Find Your Query
+				</Alert>
+			)}
+			{errorAlert && (
+				<Alert
+					classes={{
+						root: classes.alert,
+						message: classes.alertMessage,
+					}}
+					severity="error"
+				>
+					Network Error!!
+				</Alert>
+			)}
+			{movies.length > 0 && (
 				<div className={classes.results}>
 					{movies.length > 0 &&
 						movies.map((movie) => (

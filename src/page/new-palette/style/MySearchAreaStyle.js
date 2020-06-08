@@ -65,5 +65,17 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "2rem",
 		color: "#de8918",
 	},
+	alert: {
+		width: "100%",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: "1rem",
+	},
+	alertMessage: {
+		textAlign: "center",
+		fontSize: "1.5rem",
+		display: "inline-block",
+	},
 }));
 export default useStyles;
