@@ -1,15 +1,16 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-
 import PaletteNameForm from "./PaletteNameForm";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import useStyles from "../style/MyDialogStyle";
 
 export default function MyDialog({ paletteMovies }) {
 	const [open, setOpen] = React.useState(false);
+	const classes = useStyles();
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -22,8 +23,12 @@ export default function MyDialog({ paletteMovies }) {
 	return (
 		<div>
 			<Button
-				variant="outlined"
-				color="primary"
+				classes={{
+					root: classes.btnSave,
+					label: classes.btnSaveLabel,
+				}}
+				variant="contained"
+				color="secondary"
 				onClick={handleClickOpen}
 				disabled={paletteMovies.length === 0}
 			>

@@ -27,16 +27,28 @@ function MyToolbar({ open, handleDrawerOpen, paletteMovies }) {
 			>
 				<MenuIcon />
 			</IconButton>
-			<Typography variant="h3" noWrap>
-				New Movie Palette
-			</Typography>
-			<MyDialog paletteMovies={paletteMovies} />
+			<div className={classes.toolbarContainer}>
+				<Typography variant="h3" noWrap>
+					New Movie Palette
+				</Typography>
 
-			<Link to="/">
-				<Button variant="contained" color="secondary">
-					Go Back
-				</Button>
-			</Link>
+				<div className={classes.toolbarBtnsContainer}>
+					<MyDialog paletteMovies={paletteMovies} />
+
+					<Link to="/">
+						<Button
+							variant="contained"
+							color="secondary"
+							classes={{
+								root: classes.btnBack,
+								label: classes.btnBackLabel,
+							}}
+						>
+							Go Back
+						</Button>
+					</Link>
+				</div>
+			</div>
 		</Toolbar>
 	);
 }

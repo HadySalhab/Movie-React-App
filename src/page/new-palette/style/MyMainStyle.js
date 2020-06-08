@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		marginLeft: -drawerWidth,
 		display: "grid",
-		gridTemplateColumns: "repeat(auto-fit,minmax(25rem,1fr))",
+		gridTemplateColumns: "repeat(auto-fit,minmax(20rem,1fr))",
 		gridColumnGap: "1rem",
 		justifyItems: "center",
 	},
