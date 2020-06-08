@@ -16,7 +16,7 @@ const styles = {
 		color: "white",
 	},
 	logo: {
-		padding: "0.5rem 1rem",
+		padding: "0.5rem 2rem",
 		marginLeft: "1rem",
 		fontSize: "1.3rem",
 		backgroundColor: "#de8918",

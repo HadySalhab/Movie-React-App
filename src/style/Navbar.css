@@ -10,17 +10,3 @@
 	min-height: 6.4rem;
 	background-color: #282c34;
 }
-
-.logo {
-	display: inline-block;
-	padding: 1.8rem 2rem;
-	color: white;
-	font-size: 1.6rem;
-	text-decoration: underline;
-	background-color: rgba(0, 0, 0, 0.3);
-	transition: all 0.2s;
-}
-
-.logo:hover {
-	color: rgba(214, 214, 214, 0.925);
-}

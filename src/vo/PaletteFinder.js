@@ -1,19 +1,30 @@
 import seedMovies from "../data/seedMovies";
 class PaletteFinder {
+	constructor() {
+		const localPalettes = JSON.parse(localStorage.getItem("palettes"));
+		if (localPalettes === null) {
+			this.seedMovies = seedMovies;
+		} else {
+			this.seedMovies = localPalettes;
+		}
+	}
 	findPaletteById(paletteId) {
-		return seedMovies.find((palette) => {
+		return this.seedMovies.find((palette) => {
 			return palette.id === paletteId;
 		});
 	}
 	getAllPalettes() {
-		return seedMovies;
+		return this.seedMovies;
 	}
 	addPalettesToSeed(palette) {
-		seedMovies.push(palette);
+		this.seedMovies.push(palette);
+		localStorage.setItem("palettes", JSON.stringify(this.seedMovies));
 	}
 	isPaletteNameUnique(paletteName) {
-		return !seedMovies.some((palette) => palette.paletteName === paletteName);
+		return !this.seedMovies.some(
+			(palette) => palette.paletteName === paletteName
+		);
 	}
 }
-
-export default new PaletteFinder();
+const paletteFinder = new PaletteFinder();
+export default paletteFinder;
