@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import useStyles from "../style/MyAppBarStyle";
 import MyToolbar from "./MyToolbar";
 
-function MyAppBar({ paletteMovies, open, handleDrawerOpen }) {
+function MyAppBar({ paletteMovies, open, handleDrawerOpen, onPaletteSaved }) {
 	const classes = useStyles();
 
 	return (
@@ -25,6 +25,7 @@ function MyAppBar({ paletteMovies, open, handleDrawerOpen }) {
 					open={open}
 					handleDrawerOpen={handleDrawerOpen}
 					paletteMovies={paletteMovies}
+					onPaletteSaved={onPaletteSaved}
 				/>
 			</AppBar>
 		</div>

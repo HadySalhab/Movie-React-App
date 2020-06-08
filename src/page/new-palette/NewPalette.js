@@ -51,12 +51,24 @@ export default function NewPalette(props) {
 		setPaletteMovies(currentPalette);
 	};
 
+	const onPaletteSaved = (paletteName, emoji) => {
+		const createdPalette = {
+			paletteName,
+			emoji,
+			movies: paletteMovies,
+			id: StringHelper.replaceWhiteSpacesWithDash(paletteName),
+		};
+		PaletteFinder.addPalettesToSeed(createdPalette);
+		props.history.push("/");
+	};
+
 	return (
 		<div className={classes.root}>
 			<MyAppBar
 				open={open}
 				handleDrawerOpen={handleDrawerOpen}
 				paletteMovies={paletteMovies}
+				onPaletteSaved={onPaletteSaved}
 			/>
 
 			<MyDrawer
