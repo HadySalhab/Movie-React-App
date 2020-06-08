@@ -28,7 +28,7 @@ function MyToolbar({ open, handleDrawerOpen, paletteMovies }) {
 				<MenuIcon />
 			</IconButton>
 			<div className={classes.toolbarContainer}>
-				<Typography variant="h3" noWrap>
+				<Typography variant="h5" noWrap>
 					New Movie Palette
 				</Typography>
 
