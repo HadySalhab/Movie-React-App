@@ -28,11 +28,11 @@ class Navbar extends Component {
 		const { title, sortBy, classes } = this.props;
 		return (
 			<header className="Navbar">
-				<h1>
+				<h5>
 					<Link className="logo" to="/">
 						Movie Palette
 					</Link>
-				</h1>
+				</h5>
 				<Select
 					classes={{
 						root: classes.selectRoot,
