@@ -4,27 +4,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/styles";
-import "../style/Navbar.css";
-
-const styles = {
-	selectRoot: {
-		color: "white",
-		fontSize: "1.2rem",
-		padding: "1rem",
-	},
-	iconFilled: {
-		color: "white",
-	},
-	logo: {
-		padding: "0.5rem 2rem",
-		marginLeft: "1rem",
-		fontSize: "1.3rem",
-		backgroundColor: "#de8918",
-		"&:hover": {
-			backgroundColor: "#c98020",
-		},
-	},
-};
+import styles from "../style/NavbarStyle";
 
 class Navbar extends Component {
 	constructor(props) {
@@ -37,7 +17,7 @@ class Navbar extends Component {
 	render() {
 		const { title, sortBy, classes } = this.props;
 		return (
-			<header className="Navbar">
+			<nav className={classes.nav}>
 				<Link to="/">
 					<Button
 						className={classes.logo}
@@ -62,7 +42,7 @@ class Navbar extends Component {
 					<MenuItem value="date">By Date</MenuItem>
 					<MenuItem value="name">By Name</MenuItem>
 				</Select>
-			</header>
+			</nav>
 		);
 	}
 }

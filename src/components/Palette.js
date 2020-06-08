@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SnackbarMUI from "./SnackbarMUI";
 import MovieBox from "./MovieBox";
-import Navbar from "./Navbar";
+import Navbar from "../page/palette/components/Navbar";
 import MovieSorter from "../vo/MovieSorter";
 import stringHelper from "../vo/StringHelper";
 import "../style/Palette.css";
