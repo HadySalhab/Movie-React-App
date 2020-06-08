@@ -61,29 +61,29 @@ function MySearchArea({
 		errors,
 		setValue,
 	} = useForm();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const result = await triggerValidation("searchInput");
+		if (result) {
+			const value = getValues("searchInput");
+			if (query !== value) {
+				searchMovie(value);
+				setQuery(value);
+			}
+			setValue("searchInput", "");
+		} else {
+			setTimeout(() => {
+				clearError();
+			}, 2000);
+			console.log("not working");
+		}
+	};
+
 	return (
 		<div className={classes.searchArea}>
 			<Typography variant="h2">Search Your Movie</Typography>
-			<form
-				className={classes.form}
-				onSubmit={async (e) => {
-					e.preventDefault();
-					const result = await triggerValidation("searchInput");
-					if (result) {
-						const value = getValues("searchInput");
-						if (query !== value) {
-							searchMovie(value);
-							setQuery(value);
-						}
-						setValue("searchInput", "");
-					} else {
-						setTimeout(() => {
-							clearError();
-						}, 2000);
-						console.log("not working");
-					}
-				}}
-			>
+			<form className={classes.form} onSubmit={handleSubmit}>
 				<input
 					className={classes.input}
 					name="searchInput"
