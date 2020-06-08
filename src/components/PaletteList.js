@@ -11,6 +11,7 @@ const styles = {
 		backgroundColor: "#282c34",
 		minHeight: "100vh",
 		alignItems: "flex-start",
+		padding: "2rem 0rem",
 	},
 	container: {
 		width: "50%",
@@ -20,6 +21,7 @@ const styles = {
 		flexWrap: "wrap",
 	},
 	nav: {
+		marginBottom: "1rem",
 		display: "flex",
 		width: "100%",
 		justifyContent: "space-between",
@@ -28,7 +30,6 @@ const styles = {
 		"& h1": {
 			textAlign: "center",
 			fontSize: "3rem",
-			margin: "2rem 0rem",
 		},
 		"& a": {
 			color: "white",
