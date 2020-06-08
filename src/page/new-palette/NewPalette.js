@@ -16,7 +16,6 @@ export default function NewPalette(props) {
 	};
 
 	const [infoAlert, setInfoAlert] = useState(false);
-	const [errorAlert, setErrorAlert] = useState(false);
 
 	const handleLearnMore = (id) => {
 		window.open(`/movies/${id}`);
@@ -52,30 +51,12 @@ export default function NewPalette(props) {
 		setPaletteMovies(currentPalette);
 	};
 
-	const savePalette = (input) => {
-		if (paletteMovies.length === 0) {
-			setErrorAlert(true);
-			setTimeout(() => {
-				setErrorAlert(false);
-			}, 2000);
-			return;
-		}
-		const newPalette = {
-			paletteName: input,
-			id: StringHelper.replaceWhiteSpacesWithDash(input),
-			emoji: "🎨",
-			movies: paletteMovies,
-		};
-		PaletteFinder.addPalettesToSeed(newPalette);
-		props.history.push("/");
-	};
-
 	return (
 		<div className={classes.root}>
 			<MyAppBar
 				open={open}
 				handleDrawerOpen={handleDrawerOpen}
-				savePalette={savePalette}
+				paletteMovies={paletteMovies}
 			/>
 
 			<MyDrawer
@@ -89,7 +70,6 @@ export default function NewPalette(props) {
 			<MyMain
 				open={open}
 				infoAlert={infoAlert}
-				errorAlert={errorAlert}
 				paletteMovies={paletteMovies}
 				handleAddOrRemove={handleAddOrRemove}
 				handleLearnMore={handleLearnMore}

@@ -8,7 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function MyDialog({ savePalette }) {
+export default function MyDialog({ paletteMovies }) {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -21,8 +21,13 @@ export default function MyDialog({ savePalette }) {
 
 	return (
 		<div>
-			<Button variant="outlined" color="primary" onClick={handleClickOpen}>
-				Open form dialog
+			<Button
+				variant="outlined"
+				color="primary"
+				onClick={handleClickOpen}
+				disabled={paletteMovies.length === 0}
+			>
+				Save Palette
 			</Button>
 			<Dialog
 				open={open}
@@ -35,7 +40,7 @@ export default function MyDialog({ savePalette }) {
 						To subscribe to this website, please enter your email address here.
 						We will send updates occasionally.
 					</DialogContentText>
-					<PaletteNameForm savePalette={savePalette} />
+					<PaletteNameForm paletteMovies={paletteMovies} />
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} color="primary">

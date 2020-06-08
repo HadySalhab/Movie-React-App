@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import PaletteFinder from "../../../vo/PaletteFinder";
 
-function PaletteNameForm({ savePalette }) {
+function PaletteNameForm({ paletteMovies }) {
 	const {
 		clearError,
 		triggerValidation,
@@ -22,7 +22,7 @@ function PaletteNameForm({ savePalette }) {
 		const result = await triggerValidation("paletteNameInput");
 		if (result) {
 			const input = getValues("paletteNameInput");
-			savePalette(input);
+			// savePalette(input);
 		} else {
 			setTimeout(() => {
 				clearError();
