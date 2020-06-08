@@ -10,20 +10,23 @@ import Typography from "@material-ui/core/Typography";
 import Constants from "../../../data/Constants";
 import useStyles from "../style/MovieCardStyle";
 export default function MovieCard(props) {
-	const { id, title, description, type, learnMore, addOrRemove } = props;
+	const { movie, type, learnMore, addOrRemove } = props;
+
 	const classes = useStyles(props);
 	function truncateWithEllipses(text, max) {
 		return text.substr(0, max - 1) + (text.length > max ? "..." : "");
 	}
 
 	const handleLearnMore = () => {
-		learnMore(id);
+		learnMore(movie.id);
 	};
 	const handleAddOrRemove = () => {
-		addOrRemove(id, type);
+		addOrRemove(movie, type);
 	};
 	const imgUrl =
-		Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE_W250 + props.poster;
+		Constants.IMAGE_BASE_URL +
+		Constants.IMAGE_FILE_SIZE_W250 +
+		movie.poster_path;
 	return (
 		<Card className={classes.root}>
 			<CardMedia
@@ -34,10 +37,10 @@ export default function MovieCard(props) {
 			/>
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="h2">
-					{title}
+					{movie.original_title}
 				</Typography>
 				<Typography variant="h6" color="textSecondary" component="p">
-					{truncateWithEllipses(description, 100)}
+					{truncateWithEllipses(movie.overview, 100)}
 				</Typography>
 			</CardContent>
 

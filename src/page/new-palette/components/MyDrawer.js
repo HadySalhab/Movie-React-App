@@ -10,11 +10,8 @@ import useStyles from "../style/MyDrawerStyle";
 function MyDrawer({
 	open,
 	handleDrawerClose,
-	searchMovie,
 	paletteMovies,
 	clearPalette,
-	movies,
-	clearResults,
 	handleAddOrRemove,
 	handleLearnMore,
 }) {
@@ -42,11 +39,8 @@ function MyDrawer({
 
 			<Divider />
 			<MySearchArea
-				searchMovie={searchMovie}
 				paletteMovies={paletteMovies}
 				clearPalette={clearPalette}
-				movies={movies}
-				clearResults={clearResults}
 				handleAddOrRemove={handleAddOrRemove}
 				handleLearnMore={handleLearnMore}
 			/>

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import tmdbClient from "../../vo/TmdbClient";
+import React, { useState } from "react";
 import StringHelper from "../../vo/StringHelper";
 import PaletteFinder from "../../vo/PaletteFinder";
 import MyAppBar from "./components/MyAppBar";
@@ -11,7 +10,6 @@ import useDrawerState from "../../hooks/useDrawerState";
 export default function NewPalette(props) {
 	const classes = useStyles();
 	const [open, handleDrawerClose, handleDrawerOpen] = useDrawerState(true);
-	const [movies, setMovies] = useState([]);
 	const [paletteMovies, setPaletteMovies] = useState([]);
 	const clearPalette = () => {
 		setPaletteMovies([]);
@@ -20,47 +18,40 @@ export default function NewPalette(props) {
 	const [infoAlert, setInfoAlert] = useState(false);
 	const [errorAlert, setErrorAlert] = useState(false);
 
-	const searchMovie = async (value) => {
-		setMovies([]);
-		const movies = await tmdbClient.searchMovie(value);
-		setMovies(movies.results);
-	};
-
 	const handleLearnMore = (id) => {
 		window.open(`/movies/${id}`);
 	};
-	const handleAddOrRemove = (id, type) => {
+	const handleAddOrRemove = (movie, type) => {
 		if (type === "add") {
-			addMovieToPalette(id);
+			addMovieToPalette(movie);
 		} else {
-			removeMovieFromPalette(id);
+			removeMovieFromPalette(movie);
 		}
 	};
-	const addMovieToPalette = (id) => {
-		const isMovieInPalette = paletteMovies.some((movie) => movie.id === id);
+	const addMovieToPalette = (movieToAdd) => {
+		console.log(movieToAdd);
+		const isMovieInPalette = paletteMovies.some(
+			(movie) => movie.id === movieToAdd.id
+		);
 		if (isMovieInPalette) {
 			setInfoAlert(true);
 			setTimeout(() => {
 				setInfoAlert(false);
 			}, 2000);
 		} else {
-			const movie = movies.find((mov) => mov.id === id);
 			const currentPalette = paletteMovies.map((movie) => movie);
-			currentPalette.push(movie);
+			currentPalette.push(movieToAdd);
 			setPaletteMovies(currentPalette);
 		}
 	};
 
-	const removeMovieFromPalette = (id) => {
+	const removeMovieFromPalette = (movieToRemove) => {
 		const currentPalette = paletteMovies
 			.map((movie) => movie)
-			.filter((movie) => movie.id !== id);
+			.filter((movie) => movie.id !== movieToRemove.id);
 		setPaletteMovies(currentPalette);
 	};
 
-	const clearResults = () => {
-		setMovies([]);
-	};
 	const savePalette = (input) => {
 		if (paletteMovies.length === 0) {
 			setErrorAlert(true);
@@ -90,13 +81,10 @@ export default function NewPalette(props) {
 			<MyDrawer
 				open={open}
 				handleDrawerClose={handleDrawerClose}
-				searchMovie={searchMovie}
 				paletteMovies={paletteMovies}
 				clearPalette={clearPalette}
-				movies={movies}
-				clearResults={clearResults}
-				handleLearnMore={handleLearnMore}
 				handleAddOrRemove={handleAddOrRemove}
+				handleLearnMore={handleLearnMore}
 			/>
 			<MyMain
 				open={open}

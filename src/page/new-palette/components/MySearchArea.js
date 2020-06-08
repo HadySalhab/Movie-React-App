@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import useStyles from "../style/MySearchAreaStyle";
 import MovieCard from "./MovieCard";
+import tmdbClient from "../../../vo/TmdbClient";
 import { useForm } from "react-hook-form";
+
 function MySearchArea({
-	searchMovie,
 	paletteMovies,
 	clearPalette,
-	movies,
-	clearResults,
-	handleLearnMore,
 	handleAddOrRemove,
+	handleLearnMore,
 }) {
 	const classes = useStyles();
+	const [movies, setMovies] = useState([]);
+	const [loading, isLoading] = useState(false);
+
+	const searchMovie = async (value) => {
+		setMovies([]);
+		isLoading(true);
+		const movies = await tmdbClient.searchMovie(value);
+		setMovies(movies.results);
+		isLoading(false);
+	};
+
+	const clearResults = () => {
+		setMovies([]);
+	};
+
 	const {
 		clearError,
 		triggerValidation,
@@ -92,21 +107,26 @@ function MySearchArea({
 					Clear Palette
 				</Button>
 			</div>
-			<div className={classes.results}>
-				{movies.length > 0 &&
-					movies.map((movie) => (
-						<MovieCard
-							key={movie.id}
-							id={movie.id}
-							title={movie.original_title}
-							description={movie.overview}
-							poster={movie.poster_path}
-							learnMore={handleLearnMore}
-							addOrRemove={handleAddOrRemove}
-							type="add"
-						/>
-					))}
-			</div>
+			{loading ? (
+				<CircularProgress
+					classes={{
+						root: classes.circularProgress,
+					}}
+				/>
+			) : (
+				<div className={classes.results}>
+					{movies.length > 0 &&
+						movies.map((movie) => (
+							<MovieCard
+								key={movie.id}
+								movie={movie}
+								learnMore={handleLearnMore}
+								addOrRemove={handleAddOrRemove}
+								type="add"
+							/>
+						))}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -60,5 +60,10 @@ const useStyles = makeStyles((theme) => ({
 	btnResultsLabel: {
 		fontSize: "1rem",
 	},
+	circularProgress: {
+		alignSelf: "center",
+		marginTop: "2rem",
+		color: "#de8918",
+	},
 }));
 export default useStyles;

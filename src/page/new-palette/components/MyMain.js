@@ -45,10 +45,7 @@ function MyMain({
 			{paletteMovies.map((movie) => (
 				<MovieCard
 					key={movie.id}
-					id={movie.id}
-					title={movie.original_title}
-					description={movie.overview}
-					poster={movie.poster_path}
+					movie={movie}
 					learnMore={handleLearnMore}
 					addOrRemove={handleAddOrRemove}
 					type="remove"
