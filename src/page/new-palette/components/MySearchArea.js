@@ -19,6 +19,7 @@ function MySearchArea({
 	const [loading, isLoading] = useState(false);
 	const [infoAlert, setInfoAlert] = useState(false);
 	const [errorAlert, setErrorAlert] = useState(false);
+	const [query, setQuery] = useState("");
 
 	const searchMovie = async (value) => {
 		showLoadingState();
@@ -70,7 +71,10 @@ function MySearchArea({
 					const result = await triggerValidation("searchInput");
 					if (result) {
 						const value = getValues("searchInput");
-						searchMovie(value);
+						if (query !== value) {
+							searchMovie(value);
+							setQuery(value);
+						}
 						setValue("searchInput", "");
 					} else {
 						setTimeout(() => {
