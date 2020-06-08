@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-const drawerWidth = 450;
+import Constanst from "../../../data/Constants";
 const useStyles = makeStyles((theme) => ({
 	drawerHeader: {
 		display: "flex",
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		marginLeft: -drawerWidth,
+		marginLeft: -Constanst.DRAWER_WIDTH,
 		display: "grid",
 		gridTemplateColumns: "repeat(auto-fit,minmax(22rem,1fr))",
 		gridColumnGap: "1rem",
