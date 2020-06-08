@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -9,27 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Constants from "../../../data/Constants";
-
-const useStyles = makeStyles({
-	root: {
-		marginBottom: "1rem",
-		width: "100%",
-		display: "flex",
-		flexDirection: "column",
-	},
-	img: {
-		height: "14rem",
-	},
-	cardActions: {
-		display: "flex",
-		justifyContent: "flex-end",
-		marginTop: "auto",
-	},
-	btnText: {
-		fontSize: "1.2rem",
-	},
-});
-
+import useStyles from "../style/MovieCardStyle";
 export default function MovieCard(props) {
 	const { id, title, description, type, learnMore, addOrRemove } = props;
 	const classes = useStyles(props);
@@ -72,7 +51,7 @@ export default function MovieCard(props) {
 					color="primary"
 					onClick={handleLearnMore}
 					classes={{
-						root: classes.btnText,
+						root: classes.cardBtn,
 					}}
 				>
 					Learn More
@@ -82,7 +61,7 @@ export default function MovieCard(props) {
 					color="primary"
 					onClick={handleAddOrRemove}
 					classes={{
-						root: classes.btnText,
+						root: classes.cardBtn,
 					}}
 				>
 					{type}
