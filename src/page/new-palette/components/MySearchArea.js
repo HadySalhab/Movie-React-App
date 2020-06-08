@@ -89,7 +89,7 @@ function MySearchArea({
 				/>
 				{/* errors will return when field validation fails  */}
 				{errors.searchInput?.type === "required" && (
-					<span>This field is required</span>
+					<span className={classes.formError}>This field is required</span>
 				)}
 				<Button
 					fullWidth={true}

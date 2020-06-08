@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "rgba(0,0,0,0.7)",
 		padding: "0.5rem",
 		"&:hover": {
-			backgroundColor: "grey",
+			backgroundColor: "rgba(0,0,0,0.6)",
 		},
 	},
 	btnPrimaryLabel: {
@@ -76,6 +76,12 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		fontSize: "1.5rem",
 		display: "inline-block",
+	},
+	formError: {
+		color: "red",
+		fontSize: "1.5rem",
+		display: "block",
+		marginBottom: "1rem",
 	},
 }));
 export default useStyles;
