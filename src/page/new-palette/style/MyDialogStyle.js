@@ -36,5 +36,22 @@ const useStyles = makeStyles((theme) => ({
 		display: "block",
 		marginBottom: "1rem",
 	},
+	form: {
+		width: "100%",
+	},
+	input: {
+		width: "100%",
+		border: "none",
+		borderBottom: "1px solid black",
+		"&:focus": {
+			outline: "none",
+		},
+	},
+	formError: {
+		color: "red",
+		fontSize: "1.5rem",
+		display: "block",
+		marginTop: "1rem",
+	},
 }));
 export default useStyles;
