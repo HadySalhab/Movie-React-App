@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -7,12 +8,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useForm } from "react-hook-form";
 import PaletteFinder from "../../../vo/PaletteFinder";
+import StringHelper from "../../../vo/StringHelper";
 import useStyles from "../style/MyDialogStyle";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { DispatchPalettesContext } from "../../../context/app/palettes.context";
 import useDialog from "../../../hooks/useDialog";
 
-export default function MyDialog({ paletteMovies, onPaletteSaved }) {
+function MyDialog(props) {
+	const { paletteMovies } = props;
 	const {
 		isOpen,
 		hideDialog,
@@ -28,6 +32,7 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 		getValues,
 		errors,
 	} = useForm();
+	const { addPalette } = useContext(DispatchPalettesContext);
 
 	const [input, setInput] = React.useState("");
 	const classes = useStyles();
@@ -50,7 +55,14 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 	};
 
 	const savePalette = (emoji) => {
-		onPaletteSaved(input, emoji.native);
+		const createdPalette = {
+			paletteName: input,
+			emoji: emoji.native,
+			movies: paletteMovies,
+			id: StringHelper.replaceWhiteSpacesWithDash(input),
+		};
+		addPalette(createdPalette);
+		props.history.push("/");
 	};
 
 	return (
@@ -122,3 +134,4 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 		</div>
 	);
 }
+export default withRouter(MyDialog);

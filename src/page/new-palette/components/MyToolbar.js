@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 
 import useStyles from "../style/MyToolbarStyle";
 
-function MyToolbar({ open, handleDrawerOpen, paletteMovies, onPaletteSaved }) {
+function MyToolbar({ open, handleDrawerOpen, paletteMovies }) {
 	const classes = useStyles();
 	return (
 		<Toolbar
@@ -33,10 +33,7 @@ function MyToolbar({ open, handleDrawerOpen, paletteMovies, onPaletteSaved }) {
 				</Typography>
 
 				<div className={classes.toolbarBtnsContainer}>
-					<MyDialog
-						paletteMovies={paletteMovies}
-						onPaletteSaved={onPaletteSaved}
-					/>
+					<MyDialog paletteMovies={paletteMovies} />
 
 					<Link to="/">
 						<Button

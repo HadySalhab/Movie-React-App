@@ -19,7 +19,11 @@ function App() {
 			<Route
 				exact
 				path="/palette/new"
-				render={(routeProps) => <NewPalette {...routeProps} />}
+				render={(routeProps) => (
+					<PalettesProvider>
+						<NewPalette {...routeProps} />
+					</PalettesProvider>
+				)}
 			/>
 
 			<Route
