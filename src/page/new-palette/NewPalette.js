@@ -12,7 +12,7 @@ import useAlertState from "../../hooks/useAlertState";
 export default function NewPalette(props) {
 	const classes = useStyles();
 	const [open, handleDrawerClose, handleDrawerOpen] = useDrawerState(true);
-	const [alert, showAlertFor] = useAlertState(false);
+	const [alert, showAlertFor] = useAlertState(null);
 	const [
 		paletteMovies,
 		addMovie,
@@ -35,7 +35,7 @@ export default function NewPalette(props) {
 			(movie) => movie.id === movieToAdd.id
 		);
 		if (isMovieInPalette) {
-			showAlertFor(2000);
+			showAlertFor("info", "Movie Already Added To Palette", 2000);
 		} else {
 			addMovie(movieToAdd);
 		}

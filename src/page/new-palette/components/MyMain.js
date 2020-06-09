@@ -24,9 +24,9 @@ function MyMain({
 						root: classes.alert,
 						message: classes.alertMessage,
 					}}
-					severity="info"
+					severity={alert.type}
 				>
-					Movie Already Added To Palette
+					{alert.msg}
 				</Alert>
 			)}
 			{paletteMovies.map((movie) => (

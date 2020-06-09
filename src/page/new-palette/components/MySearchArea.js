@@ -7,6 +7,7 @@ import MovieCard from "./MovieCard";
 import tmdbClient from "../../../vo/TmdbClient";
 import Alert from "@material-ui/lab/Alert";
 import { useForm } from "react-hook-form";
+import useAlertState from "../../../hooks/useAlertState";
 
 function MySearchArea({
 	paletteMovies,
@@ -17,8 +18,7 @@ function MySearchArea({
 	const classes = useStyles();
 	const [movies, setMovies] = useState([]);
 	const [loading, isLoading] = useState(false);
-	const [infoAlert, setInfoAlert] = useState(false);
-	const [errorAlert, setErrorAlert] = useState(false);
+	const [alert, showAlertFor, hideAlert] = useAlertState(null);
 
 	const searchMovie = async (value) => {
 		showLoadingState();
@@ -27,24 +27,17 @@ function MySearchArea({
 			searchMovie = await tmdbClient.searchMovie(value);
 			setMovies(searchMovie.results);
 			if (searchMovie.results.length === 0) {
-				setInfoAlert(true);
-				setTimeout(() => {
-					setInfoAlert(false);
-				}, 3000);
+				showAlertFor("info", "Cannot Find Your Movie", 3000);
 			}
 		} catch (err) {
-			setErrorAlert(true);
-			setTimeout(() => {
-				setErrorAlert(false);
-			}, 3000);
+			showAlertFor("error", "Network Error!", 3000);
 		}
 		isLoading(false);
 	};
 	//reset
 	const showLoadingState = () => {
 		setMovies([]);
-		setErrorAlert(false);
-		setInfoAlert(false);
+		hideAlert();
 		isLoading(true);
 	};
 
@@ -139,28 +132,18 @@ function MySearchArea({
 					}}
 				/>
 			)}
-			{infoAlert && (
+			{alert && (
 				<Alert
 					classes={{
 						root: classes.alert,
 						message: classes.alertMessage,
 					}}
-					severity="info"
+					severity={alert.type}
 				>
-					No Movies Found
+					{alert.msg}
 				</Alert>
 			)}
-			{errorAlert && (
-				<Alert
-					classes={{
-						root: classes.alert,
-						message: classes.alertMessage,
-					}}
-					severity="error"
-				>
-					Network Error!!
-				</Alert>
-			)}
+
 			{movies.length > 0 && (
 				<div className={classes.results}>
 					{movies.length > 0 &&
