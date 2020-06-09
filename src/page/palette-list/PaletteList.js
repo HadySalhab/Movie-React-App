@@ -1,15 +1,24 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/styles";
 import styles from "./style/PaletteListStyle";
 import MiniPalette from "./components/MiniPalette";
+import paletteFinder from "../../vo/PaletteFinder";
 
 const PaletteList = (props) => {
+	const [paletteList, updatePaletteList] = useState(
+		paletteFinder.getAllPalettes()
+	);
+
 	const onMiniPaletteClicked = (id) => {
 		props.history.push(`/palette/${id}`);
 	};
-	const { classes, paletteList } = props;
+
+	const deletePalette = (id) => {
+		updatePaletteList(paletteFinder.deleteAndReturnUpdatedList(id));
+	};
+	const { classes } = props;
 
 	return (
 		<div className={classes.root}>
@@ -32,6 +41,7 @@ const PaletteList = (props) => {
 							{...palette}
 							key={palette.id}
 							onMiniPaletteClicked={onMiniPaletteClicked}
+							deletePalette={deletePalette}
 						/>
 					))}
 				</div>

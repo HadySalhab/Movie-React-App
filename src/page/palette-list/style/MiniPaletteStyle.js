@@ -7,9 +7,6 @@ const styles = {
 		position: "relative",
 		minHeight: "34rem",
 		overflow: "hidden",
-		"&:hover": {
-			cursor: "pointer",
-		},
 		display: "flex",
 		flexDirection: "column",
 	},
@@ -20,6 +17,9 @@ const styles = {
 		width: "100%",
 		borderRadius: "5px",
 		overflow: "hidden",
+		"&:hover": {
+			cursor: "pointer",
+		},
 	},
 
 	text: {
@@ -38,6 +38,17 @@ const styles = {
 	emoji: {
 		marginLeft: "0.5rem",
 		fontSize: "1.5rem",
+	},
+	emojis: {
+		display: "flex",
+		justifyContent: "flex-end",
+		alignItems: "center",
+	},
+	deleteIcon: {
+		fontSize: "2.5rem",
+		"&:hover": {
+			cursor: "pointer",
+		},
 	},
 };
 export default styles;

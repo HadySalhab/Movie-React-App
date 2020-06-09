@@ -5,7 +5,7 @@ import styles from "../style/MiniMovieStyle";
 const MiniMovie = (props) => {
 	const { poster_path, classes } = props;
 	const imageUrl = IMAGE_W185 + poster_path;
-	console.log(imageUrl);
+
 	return (
 		<div
 			className={classes.root}
