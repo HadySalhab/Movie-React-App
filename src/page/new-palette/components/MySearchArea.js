@@ -9,15 +9,24 @@ import Alert from "@material-ui/lab/Alert";
 import { useForm } from "react-hook-form";
 import useAlertState from "../../../hooks/useAlertState";
 import useLoadingState from "../../../hooks/useLoadingState";
+import useMoviesResultState from "../../../hooks/useMoviesResultState";
 
-function MySearchArea({
+const MySearchArea = ({
 	paletteMovies,
 	clearPalette,
 	handleAddOrRemove,
 	handleLearnMore,
-}) {
+}) => {
 	const classes = useStyles();
-	const [movies, setMovies] = useState([]);
+	const {
+		clearError,
+		triggerValidation,
+		register,
+		getValues,
+		errors,
+		setValue,
+	} = useForm();
+	const [movies, clearMovies, replaceMoviesWith] = useMoviesResultState([]);
 	const [loading, showLoading, hideLoading] = useLoadingState(false);
 	const [alert, showAlertFor, hideAlert] = useAlertState(null);
 
@@ -26,7 +35,7 @@ function MySearchArea({
 		let searchMovie;
 		try {
 			searchMovie = await tmdbClient.searchMovie(value);
-			setMovies(searchMovie.results);
+			replaceMoviesWith(searchMovie.results);
 			if (searchMovie.results.length === 0) {
 				showAlertFor("info", "Cannot Find Your Movie", 3000);
 			}
@@ -37,23 +46,10 @@ function MySearchArea({
 	};
 	//reset
 	const showLoadingState = () => {
-		setMovies([]);
+		clearMovies();
 		hideAlert();
 		showLoading();
 	};
-
-	const clearResults = () => {
-		setMovies([]);
-	};
-
-	const {
-		clearError,
-		triggerValidation,
-		register,
-		getValues,
-		errors,
-		setValue,
-	} = useForm();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -105,7 +101,7 @@ function MySearchArea({
 					variant="contained"
 					color="secondary"
 					disabled={movies.length === 0}
-					onClick={clearResults}
+					onClick={clearMovies}
 					classes={{
 						root: classes.btnResults,
 						label: classes.btnResultsLabel,
@@ -161,6 +157,6 @@ function MySearchArea({
 			)}
 		</div>
 	);
-}
+};
 
 export default MySearchArea;
