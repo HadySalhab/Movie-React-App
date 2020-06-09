@@ -5,8 +5,7 @@ import Alert from "@material-ui/lab/Alert";
 import useStyles from "../style/MyMainStyle";
 function MyMain({
 	open,
-	infoAlert,
-	errorAlert,
+	alert,
 	paletteMovies,
 	handleLearnMore,
 	handleAddOrRemove,
@@ -19,7 +18,7 @@ function MyMain({
 			})}
 		>
 			<div className={classes.drawerHeader}></div>
-			{infoAlert && (
+			{alert && (
 				<Alert
 					classes={{
 						root: classes.alert,
@@ -30,18 +29,6 @@ function MyMain({
 					Movie Already Added To Palette
 				</Alert>
 			)}
-			{errorAlert && (
-				<Alert
-					classes={{
-						root: classes.alert,
-						message: classes.alertMessage,
-					}}
-					severity="error"
-				>
-					Empty Palette Cannot Be Saved!
-				</Alert>
-			)}
-
 			{paletteMovies.map((movie) => (
 				<MovieCard
 					key={movie.id}

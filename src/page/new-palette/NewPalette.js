@@ -6,16 +6,19 @@ import MyDrawer from "./components/MyDrawer";
 import MyMain from "./components/MyMain";
 import useStyles from "./style/NewPaletteStyle";
 import useDrawerState from "../../hooks/useDrawerState";
+import usePaletteMoviesState from "../../hooks/usePaletteMoviesState";
+import useAlertState from "../../hooks/useAlertState";
 
 export default function NewPalette(props) {
 	const classes = useStyles();
 	const [open, handleDrawerClose, handleDrawerOpen] = useDrawerState(true);
-	const [paletteMovies, setPaletteMovies] = useState([]);
-	const clearPalette = () => {
-		setPaletteMovies([]);
-	};
-
-	const [infoAlert, setInfoAlert] = useState(false);
+	const [alert, showAlertFor] = useAlertState(false);
+	const [
+		paletteMovies,
+		addMovie,
+		removeMovie,
+		clearMovies,
+	] = usePaletteMoviesState([]);
 
 	const handleLearnMore = (id) => {
 		window.open(`/movies/${id}`);
@@ -24,31 +27,18 @@ export default function NewPalette(props) {
 		if (type === "add") {
 			addMovieToPalette(movie);
 		} else {
-			removeMovieFromPalette(movie);
+			removeMovie(movie);
 		}
 	};
 	const addMovieToPalette = (movieToAdd) => {
-		console.log(movieToAdd);
 		const isMovieInPalette = paletteMovies.some(
 			(movie) => movie.id === movieToAdd.id
 		);
 		if (isMovieInPalette) {
-			setInfoAlert(true);
-			setTimeout(() => {
-				setInfoAlert(false);
-			}, 2000);
+			showAlertFor(2000);
 		} else {
-			const currentPalette = paletteMovies.map((movie) => movie);
-			currentPalette.push(movieToAdd);
-			setPaletteMovies(currentPalette);
+			addMovie(movieToAdd);
 		}
-	};
-
-	const removeMovieFromPalette = (movieToRemove) => {
-		const currentPalette = paletteMovies
-			.map((movie) => movie)
-			.filter((movie) => movie.id !== movieToRemove.id);
-		setPaletteMovies(currentPalette);
 	};
 
 	const onPaletteSaved = (paletteName, emoji) => {
@@ -75,13 +65,13 @@ export default function NewPalette(props) {
 				open={open}
 				handleDrawerClose={handleDrawerClose}
 				paletteMovies={paletteMovies}
-				clearPalette={clearPalette}
+				clearPalette={clearMovies}
 				handleAddOrRemove={handleAddOrRemove}
 				handleLearnMore={handleLearnMore}
 			/>
 			<MyMain
 				open={open}
-				infoAlert={infoAlert}
+				alert={alert}
 				paletteMovies={paletteMovies}
 				handleAddOrRemove={handleAddOrRemove}
 				handleLearnMore={handleLearnMore}
