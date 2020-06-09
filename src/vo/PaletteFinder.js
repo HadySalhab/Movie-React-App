@@ -4,7 +4,7 @@ import seedMovies from "../data/seedMovies";
 class PaletteFinder {
 	constructor() {
 		const localPalettes = JSON.parse(localStorage.getItem("palettes"));
-		if (localPalettes === null || localPalettes.length === 0) {
+		if (localPalettes === null) {
 			this.seedMovies = seedMovies;
 		} else {
 			this.seedMovies = localPalettes;
@@ -16,7 +16,7 @@ class PaletteFinder {
 		});
 	}
 	getAllPalettes() {
-		if (this.seedMovies === null || this.seedMovies.length === 0) {
+		if (this.seedMovies === null) {
 			return seedMovies;
 		}
 		return this.seedMovies;
