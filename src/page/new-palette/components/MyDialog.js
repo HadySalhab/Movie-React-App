@@ -10,28 +10,16 @@ import PaletteFinder from "../../../vo/PaletteFinder";
 import useStyles from "../style/MyDialogStyle";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import useDialog from "../../../hooks/useDialog";
 
 export default function MyDialog({ paletteMovies, onPaletteSaved }) {
-	const [open, setOpen] = React.useState(false);
-	const [content, setContent] = React.useState("form");
-	const [input, setInput] = React.useState("");
-	const classes = useStyles();
-
-	const setEmojiContent = () => {
-		setContent("emoji");
-	};
-
-	const setFormContent = () => {
-		setContent("form");
-	};
-	const handleOpen = () => {
-		setFormContent();
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
+	const {
+		isOpen,
+		hideDialog,
+		showDialogWith,
+		setContent,
+		getContent,
+	} = useDialog();
 
 	const {
 		clearError,
@@ -39,8 +27,10 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 		register,
 		getValues,
 		errors,
-		setValue,
 	} = useForm();
+
+	const [input, setInput] = React.useState("");
+	const classes = useStyles();
 
 	const isPaletteNameUnique = (pName) => {
 		return PaletteFinder.isPaletteNameUnique(pName);
@@ -51,7 +41,7 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 		const result = await triggerValidation("paletteNameInput");
 		if (result) {
 			setInput(getValues("paletteNameInput"));
-			setEmojiContent();
+			setContent("emoji");
 		} else {
 			setTimeout(() => {
 				clearError();
@@ -72,18 +62,20 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 				}}
 				variant="contained"
 				color="secondary"
-				onClick={handleOpen}
+				onClick={() => {
+					showDialogWith("form");
+				}}
 				disabled={paletteMovies.length === 0}
 			>
 				Save Palette
 			</Button>
 
 			<Dialog
-				open={open}
-				onClose={handleClose}
+				open={isOpen}
+				onClose={hideDialog}
 				aria-labelledby="form-dialog-title"
 			>
-				{content === "form" ? (
+				{getContent() === "form" && (
 					<Fragment>
 						<DialogTitle id="form-dialog-title">
 							Choose Palette Name
@@ -115,7 +107,7 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 							</DialogContent>
 
 							<DialogActions>
-								<Button onClick={handleClose} color="primary">
+								<Button onClick={hideDialog} color="primary">
 									Cancel
 								</Button>
 								<Button type="submit" variant="contained" color="secondary">
@@ -124,9 +116,8 @@ export default function MyDialog({ paletteMovies, onPaletteSaved }) {
 							</DialogActions>
 						</form>
 					</Fragment>
-				) : (
-					<Picker onSelect={savePalette} />
 				)}
+				{getContent() === "emoji" && <Picker onSelect={savePalette} />}
 			</Dialog>
 		</div>
 	);
