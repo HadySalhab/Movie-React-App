@@ -8,6 +8,7 @@ import tmdbClient from "../../../vo/TmdbClient";
 import Alert from "@material-ui/lab/Alert";
 import { useForm } from "react-hook-form";
 import useAlertState from "../../../hooks/useAlertState";
+import useLoadingState from "../../../hooks/useLoadingState";
 
 function MySearchArea({
 	paletteMovies,
@@ -17,7 +18,7 @@ function MySearchArea({
 }) {
 	const classes = useStyles();
 	const [movies, setMovies] = useState([]);
-	const [loading, isLoading] = useState(false);
+	const [loading, showLoading, hideLoading] = useLoadingState(false);
 	const [alert, showAlertFor, hideAlert] = useAlertState(null);
 
 	const searchMovie = async (value) => {
@@ -32,13 +33,13 @@ function MySearchArea({
 		} catch (err) {
 			showAlertFor("error", "Network Error!", 3000);
 		}
-		isLoading(false);
+		hideLoading();
 	};
 	//reset
 	const showLoadingState = () => {
 		setMovies([]);
 		hideAlert();
-		isLoading(true);
+		showLoading();
 	};
 
 	const clearResults = () => {
