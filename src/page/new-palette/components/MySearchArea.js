@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -10,13 +10,9 @@ import { useForm } from "react-hook-form";
 import useAlertState from "../../../hooks/useAlertState";
 import useLoadingState from "../../../hooks/useLoadingState";
 import useMoviesResultState from "../../../hooks/useMoviesResultState";
+import { NewContext, DispatchNewContext } from "../context/new.context";
 
-const MySearchArea = ({
-	paletteMovies,
-	clearPalette,
-	handleAddOrRemove,
-	handleLearnMore,
-}) => {
+const MySearchArea = () => {
 	const classes = useStyles();
 	const {
 		clearError,
@@ -26,9 +22,13 @@ const MySearchArea = ({
 		errors,
 		setValue,
 	} = useForm();
-	const [movies, clearMovies, replaceMoviesWith] = useMoviesResultState([]);
+	const [movies, clearResultMovies, replaceMoviesWith] = useMoviesResultState(
+		[]
+	);
 	const [loading, showLoading, hideLoading] = useLoadingState(false);
 	const [alert, showAlertFor, hideAlert] = useAlertState(null);
+	const { paletteMovies } = useContext(NewContext);
+	const { clearMovies } = useContext(DispatchNewContext);
 
 	const searchMovie = async (value) => {
 		showLoadingState();
@@ -46,7 +46,7 @@ const MySearchArea = ({
 	};
 	//reset
 	const showLoadingState = () => {
-		clearMovies();
+		clearResultMovies();
 		hideAlert();
 		showLoading();
 	};
@@ -101,7 +101,7 @@ const MySearchArea = ({
 					variant="contained"
 					color="secondary"
 					disabled={movies.length === 0}
-					onClick={clearMovies}
+					onClick={clearResultMovies}
 					classes={{
 						root: classes.btnResults,
 						label: classes.btnResultsLabel,
@@ -113,7 +113,7 @@ const MySearchArea = ({
 					variant="contained"
 					color="secondary"
 					disabled={paletteMovies.length === 0}
-					onClick={clearPalette}
+					onClick={clearMovies}
 					classes={{
 						root: classes.btnPalette,
 						label: classes.btnPaletteLabel,
@@ -145,13 +145,7 @@ const MySearchArea = ({
 				<div className={classes.results}>
 					{movies.length > 0 &&
 						movies.map((movie) => (
-							<MovieCard
-								key={movie.id}
-								movie={movie}
-								learnMore={handleLearnMore}
-								addOrRemove={handleAddOrRemove}
-								type="add"
-							/>
+							<MovieCard key={movie.id} movie={movie} type="add" />
 						))}
 				</div>
 			)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -9,8 +9,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { IMAGE_W250 } from "../../../data/Constants";
 import useStyles from "../style/MovieCardStyle";
+import { DispatchNewContext, NewContext } from "../context/new.context";
+
 export default function MovieCard(props) {
-	const { movie, type, learnMore, addOrRemove } = props;
+	const { movie, type } = props;
+	const { paletteMovies } = useContext(NewContext);
+	const { addMovie, removeMovie, showAlert, hideAlert } = useContext(
+		DispatchNewContext
+	);
 
 	const classes = useStyles(props);
 	function truncateWithEllipses(text, max) {
@@ -18,11 +24,24 @@ export default function MovieCard(props) {
 	}
 
 	const handleLearnMore = () => {
-		learnMore(movie.id);
+		window.open(`/movies/${movie.id}`);
 	};
 	const handleAddOrRemove = () => {
-		addOrRemove(movie, type);
+		if (type === "add") {
+			const result = paletteMovies.some((m) => m.id === movie.id);
+			if (!result) {
+				addMovie(movie);
+			} else {
+				showAlert("Movie Already In Palette", "info");
+				setTimeout(() => {
+					hideAlert();
+				}, 2000);
+			}
+		} else {
+			removeMovie(movie);
+		}
 	};
+
 	const imgUrl = IMAGE_W250 + movie.poster_path;
 	return (
 		<Card className={classes.root}>

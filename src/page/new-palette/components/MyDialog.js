@@ -16,9 +16,10 @@ import {
 	PalettesContext,
 } from "../../../context/app/palettes.context";
 import useDialog from "../../../hooks/useDialog";
+import { NewContext } from "../context/new.context";
 
 function MyDialog(props) {
-	const { paletteMovies } = props;
+	const { paletteMovies } = useContext(NewContext);
 	const {
 		isOpen,
 		hideDialog,

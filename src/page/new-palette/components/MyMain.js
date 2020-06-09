@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import MovieCard from "./MovieCard";
 import Alert from "@material-ui/lab/Alert";
 import useStyles from "../style/MyMainStyle";
-function MyMain({
-	open,
-	alert,
-	paletteMovies,
-	handleLearnMore,
-	handleAddOrRemove,
-}) {
+import { NewContext } from "../context/new.context";
+function MyMain() {
 	const classes = useStyles();
+	const { alert, open, paletteMovies } = useContext(NewContext);
 	return (
 		<main
 			className={clsx(classes.content, {
@@ -30,13 +26,7 @@ function MyMain({
 				</Alert>
 			)}
 			{paletteMovies.map((movie) => (
-				<MovieCard
-					key={movie.id}
-					movie={movie}
-					learnMore={handleLearnMore}
-					addOrRemove={handleAddOrRemove}
-					type="remove"
-				/>
+				<MovieCard key={movie.id} movie={movie} type="remove" />
 			))}
 		</main>
 	);

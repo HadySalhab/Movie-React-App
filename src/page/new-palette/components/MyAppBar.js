@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import useStyles from "../style/MyAppBarStyle";
 import MyToolbar from "./MyToolbar";
+import { NewContext } from "../context/new.context";
 
-function MyAppBar({ paletteMovies, open, handleDrawerOpen }) {
+function MyAppBar() {
 	const classes = useStyles();
+	const { open } = useContext(NewContext);
 
 	return (
 		<div>
@@ -21,11 +23,7 @@ function MyAppBar({ paletteMovies, open, handleDrawerOpen }) {
 					[classes.appBarShift]: open,
 				})}
 			>
-				<MyToolbar
-					open={open}
-					handleDrawerOpen={handleDrawerOpen}
-					paletteMovies={paletteMovies}
-				/>
+				<MyToolbar />
 			</AppBar>
 		</div>
 	);

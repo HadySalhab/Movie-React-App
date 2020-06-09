@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
@@ -7,16 +7,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { useTheme } from "@material-ui/core/styles";
 import MySearchArea from "./MySearchArea";
 import useStyles from "../style/MyDrawerStyle";
-function MyDrawer({
-	open,
-	handleDrawerClose,
-	paletteMovies,
-	clearPalette,
-	handleAddOrRemove,
-	handleLearnMore,
-}) {
+import { NewContext, DispatchNewContext } from "../context/new.context";
+function MyDrawer() {
 	const theme = useTheme();
 	const classes = useStyles();
+	const { open } = useContext(NewContext);
+	const { closeDrawer } = useContext(DispatchNewContext);
 	return (
 		<Drawer
 			className={classes.drawer}
@@ -28,7 +24,7 @@ function MyDrawer({
 			}}
 		>
 			<div className={classes.drawerHeader}>
-				<IconButton onClick={handleDrawerClose}>
+				<IconButton onClick={closeDrawer}>
 					{theme.direction === "ltr" ? (
 						<ChevronLeftIcon />
 					) : (
@@ -38,12 +34,7 @@ function MyDrawer({
 			</div>
 
 			<Divider />
-			<MySearchArea
-				paletteMovies={paletteMovies}
-				clearPalette={clearPalette}
-				handleAddOrRemove={handleAddOrRemove}
-				handleLearnMore={handleLearnMore}
-			/>
+			<MySearchArea />
 		</Drawer>
 	);
 }
