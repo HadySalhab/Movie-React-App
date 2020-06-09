@@ -6,6 +6,7 @@ import MovieDetail from "./page/movie-detail/MovieDetail";
 import NewPalette from "./page/new-palette/NewPalette";
 import "./App.css";
 import PalettesProvider from "./context/app/palettes.context";
+import DetailProvider from "./page/movie-detail/context/detail.context";
 
 function App() {
 	return (
@@ -13,7 +14,11 @@ function App() {
 			<Route
 				exact
 				path="/movies/:movieName"
-				render={(routeProps) => <MovieDetail {...routeProps} />}
+				render={(routeProps) => (
+					<DetailProvider>
+						<MovieDetail {...routeProps} />
+					</DetailProvider>
+				)}
 			/>
 			<Route
 				exact

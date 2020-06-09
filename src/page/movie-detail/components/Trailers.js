@@ -1,9 +1,11 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { DetailContext } from "../context/detail.context";
 import { withStyles } from "@material-ui/styles";
 import styles from "../style/TrailersStyle";
 
-const Trailers = ({ videos, classes }) => {
+const Trailers = ({ classes }) => {
+	const { detail } = useContext(DetailContext);
+	const videos = detail.videos.results;
 	return (
 		<section className={classes.trailerSection}>
 			<h1>Trailers</h1>

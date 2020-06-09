@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/styles";
+import { DetailContext } from "../context/detail.context";
 import styles from "../style/ReviewsStyle";
 
-const Reviews = ({ classes, reviews }) => {
+const Reviews = ({ classes }) => {
+	const { detail } = useContext(DetailContext);
+	const reviews = detail.reviews.results;
 	return (
 		<section className={classes.reviewSection}>
 			<h1>Reviews</h1>

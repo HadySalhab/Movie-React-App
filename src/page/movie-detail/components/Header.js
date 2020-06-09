@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IMAGE_W1920, IMAGE_W600 } from "../../../data/Constants";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { withStyles } from "@material-ui/styles";
+import { DetailContext } from "../context/detail.context";
 import styles from "../style/HeaderStyle";
 
-const Header = (props) => {
-	const { classes, movieDetail } = props;
+const Header = ({ classes }) => {
+	const { detail } = useContext(DetailContext);
 
-	const backdrop = IMAGE_W1920 + movieDetail.backdrop_path;
-	const poster = IMAGE_W600 + movieDetail.poster_path;
-	const genreName = movieDetail.genres.map((genre) => {
+	const backdrop = IMAGE_W1920 + detail.backdrop_path;
+	const poster = IMAGE_W600 + detail.poster_path;
+	const genreName = detail.genres.map((genre) => {
 		return genre.name;
 	});
 
-	const crewArr = movieDetail.credits.crew;
+	const crewArr = detail.credits.crew;
 
 	const director = crewArr.find((crew) => {
 		return crew.department === "Directing";
@@ -34,9 +35,9 @@ const Header = (props) => {
 					<img className={classes.poster} src={poster} alt="Movie Poster" />
 				</div>
 				<div className={classes.summary}>
-					<h2>{movieDetail.original_title}</h2>
+					<h2>{detail.original_title}</h2>
 					<div className={classes.facts}>
-						<span>{movieDetail.release_date}</span>
+						<span>{detail.release_date}</span>
 						<span className={classes.genres}>
 							&bull;
 							{genreName.map((g, index) => {
@@ -48,18 +49,18 @@ const Header = (props) => {
 							&bull;
 						</span>
 					</div>
-					<p className={classes.tagline}>{movieDetail.tagline}</p>
+					<p className={classes.tagline}>{detail.tagline}</p>
 					<div className={classes.overview}>
 						<h4>Overview</h4>
-						<p>{movieDetail.overview}</p>
+						<p>{detail.overview}</p>
 					</div>
 					<div className={classes.vote}>
 						<div className={classes.voteAvg}>
-							Vote Count: {movieDetail.vote_count}
+							Vote Count: {detail.vote_count}
 						</div>
 						<CircularProgressbar
-							value={movieDetail.vote_average * 10}
-							text={`${movieDetail.vote_average * 10}%`}
+							value={detail.vote_average * 10}
+							text={`${detail.vote_average * 10}%`}
 							background={true}
 							styles={{
 								// Customize the root svg element
@@ -90,7 +91,7 @@ const Header = (props) => {
 					<ul className={classes.list}>
 						<li className={classes.listItem}>
 							<i className="fas fa-user-circle"></i>
-							Adult: {movieDetail.adult ? "No" : "Yes"}
+							Adult: {detail.adult ? "No" : "Yes"}
 						</li>
 						<li className={classes.listItem}>
 							<i
@@ -98,9 +99,7 @@ const Header = (props) => {
 								style={{ marginLeft: "-.3rem" }}
 							></i>
 							Budget: $
-							{movieDetail.budget
-								.toString()
-								.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+							{detail.budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 						</li>
 						<li className={classes.listItem}>
 							<i className="fas fa-home"></i>
@@ -108,22 +107,22 @@ const Header = (props) => {
 							<a
 								className={classes.homepage}
 								target="_blank"
-								href={movieDetail.homepage}
+								href={detail.homepage}
 							>
 								Home Page
 							</a>
 						</li>
 						<li className={classes.listItem}>
 							<i className="fas fa-globe" style={{ marginLeft: "-.3rem" }}></i>
-							Language: {movieDetail.original_language}
+							Language: {detail.original_language}
 						</li>
 						<li className={classes.listItem}>
 							<i className="far fa-clock"></i>
-							Runtime: {movieDetail.runtime} Min
+							Runtime: {detail.runtime} Min
 						</li>
 						<li className={classes.listItem}>
 							<i className="fas fa-info"></i>
-							Status: {movieDetail.status}
+							Status: {detail.status}
 						</li>
 						{director && (
 							<li className={classes.listItem}>

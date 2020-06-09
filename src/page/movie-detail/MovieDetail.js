@@ -1,5 +1,4 @@
-import React, { useEffect, Fragment } from "react";
-import tmdbClient from "../../vo/TmdbClient";
+import React, { useEffect, Fragment, useContext } from "react";
 import stringHelper from "../../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import "react-circular-progressbar/dist/styles.css";
@@ -10,35 +9,18 @@ import Trailers from "./components/Trailers";
 import Casts from "./components/Casts";
 import Reviews from "./components/Reviews";
 import Alert from "@material-ui/lab/Alert";
-import useAlertState from "../../hooks/useAlertState";
-import useLoadingState from "../../hooks/useLoadingState";
-import useMovieState from "../../hooks/useMovieState";
+import { DetailContext } from "./context/detail.context";
 
-const MovieDetail = (props) => {
-	const { classes } = props;
-	const [movie, updateMovie] = useMovieState(null);
-	const [loading, showLoading, hideLoading] = useLoadingState(true);
-	const [alert, showAlertFor, hideAlert, showAlert] = useAlertState(null);
+const MovieDetail = ({ classes, match }) => {
+	const { detail, loading, alert, getMovie } = useContext(DetailContext);
 	useEffect(() => {
-		hideAlert();
-		async function fetchMovie() {
-			try {
-				const movieResult = await tmdbClient.getMovie(
-					stringHelper.splitStringAtDashAndReturnFirstItem(
-						props.match.params.movieName
-					)
-				);
-				updateMovie(movieResult);
-			} catch (err) {
-				showAlert("error", "Network Error!");
-			}
-			hideLoading();
-		}
-		fetchMovie();
+		getMovie(
+			stringHelper.splitStringAtDashAndReturnFirstItem(match.params.movieName)
+		);
 	}, []);
 
 	const getVisibleCast = () => {
-		const castArr = movie.credits.cast;
+		const castArr = detail.credits.cast;
 		const castArrWithImage = castArr.filter((cast) => {
 			return cast.profile_path !== null;
 		});
@@ -56,9 +38,9 @@ const MovieDetail = (props) => {
 					/>
 				</div>
 			)}
-			{movie && (
+			{detail && (
 				<div className={classes.root}>
-					<Header movieDetail={movie} />
+					<Header />
 
 					<div>
 						<div className={classes.container}>
@@ -66,13 +48,9 @@ const MovieDetail = (props) => {
 								<Casts visibleCast={getVisibleCast()} />
 							)}
 
-							{movie.videos.results.length > 0 && (
-								<Trailers videos={movie.videos.results} />
-							)}
+							{detail.videos.results.length > 0 && <Trailers />}
 
-							{movie.reviews.results.length > 0 && (
-								<Reviews reviews={movie.reviews.results} />
-							)}
+							{detail.reviews.results.length > 0 && <Reviews />}
 						</div>
 					</div>
 					<footer className={classes.footer}>
