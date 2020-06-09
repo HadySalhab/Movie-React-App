@@ -1,62 +1,77 @@
-import React, { Component } from "react";
+import React, { useEffect, Fragment } from "react";
 import tmdbClient from "../../vo/TmdbClient";
 import stringHelper from "../../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import "react-circular-progressbar/dist/styles.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import styles from "./style/MovieDetailStyle";
 import Header from "./components/Header";
 import Trailers from "./components/Trailers";
 import Casts from "./components/Casts";
 import Reviews from "./components/Reviews";
+import Alert from "@material-ui/lab/Alert";
+import useAlertState from "../../hooks/useAlertState";
+import useLoadingState from "../../hooks/useLoadingState";
+import useMovieState from "../../hooks/useMovieState";
 
-class MovieDetail extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			movieId: stringHelper.splitStringAtDashAndReturnFirstItem(
-				this.props.match.params.movieName
-			),
-			movieDetail: null,
-			loading: true,
-		};
-	}
-
-	async componentDidMount() {
-		try {
-			const movieDetail = await tmdbClient.getMovie(this.state.movieId);
-			this.setState({
-				movieDetail,
-				loading: false,
-			});
-		} catch (err) {
-			console.log(err);
+const MovieDetail = (props) => {
+	const { classes } = props;
+	const [movie, updateMovie] = useMovieState(null);
+	const [loading, showLoading, hideLoading] = useLoadingState(true);
+	const [alert, showAlertFor, hideAlert, showAlert] = useAlertState(null);
+	useEffect(() => {
+		hideAlert();
+		async function fetchMovie() {
+			try {
+				const movieResult = await tmdbClient.getMovie(
+					stringHelper.splitStringAtDashAndReturnFirstItem(
+						props.match.params.movieName
+					)
+				);
+				updateMovie(movieResult);
+			} catch (err) {
+				showAlert("error", "Network Error!");
+			}
+			hideLoading();
 		}
-	}
+		fetchMovie();
+	}, []);
 
-	render() {
-		const { movieDetail, loading } = this.state;
-		const { classes } = this.props;
+	const getVisibleCast = () => {
+		const castArr = movie.credits.cast;
+		const castArrWithImage = castArr.filter((cast) => {
+			return cast.profile_path !== null;
+		});
+		return castArrWithImage.slice(0, 10);
+	};
 
-		if (!loading) {
-			const castArr = movieDetail.credits.cast;
-			const castArrWithImage = castArr.filter((cast) => {
-				return cast.profile_path !== null;
-			});
-			const visibleCast = castArrWithImage.slice(0, 10);
-			return (
+	return (
+		<Fragment>
+			{loading && (
+				<div className={classes.progress}>
+					<CircularProgress
+						classes={{
+							root: classes.circularProgress,
+						}}
+					/>
+				</div>
+			)}
+			{movie && (
 				<div className={classes.root}>
-					<Header movieDetail={movieDetail} />
+					<Header movieDetail={movie} />
 
 					<div>
 						<div className={classes.container}>
-							{visibleCast.length > 0 && <Casts visibleCast={visibleCast} />}
-
-							{movieDetail.videos.results.length > 0 && (
-								<Trailers videos={movieDetail.videos.results} />
+							{getVisibleCast().length > 0 && (
+								<Casts visibleCast={getVisibleCast()} />
 							)}
 
-							{movieDetail.reviews.results.length > 0 && (
-								<Reviews reviews={movieDetail.reviews.results} />
+							{movie.videos.results.length > 0 && (
+								<Trailers videos={movie.videos.results} />
+							)}
+
+							{movie.reviews.results.length > 0 && (
+								<Reviews reviews={movie.reviews.results} />
 							)}
 						</div>
 					</div>
@@ -68,10 +83,20 @@ class MovieDetail extends Component {
 						</a>
 					</footer>
 				</div>
-			);
-		} else {
-			return <div></div>;
-		}
-	}
-}
+			)}
+			{alert && (
+				<Alert
+					classes={{
+						root: classes.alert,
+						message: classes.alertMessage,
+					}}
+					severity={alert.type}
+				>
+					{alert.msg}
+				</Alert>
+			)}
+		</Fragment>
+	);
+};
+
 export default withStyles(styles)(MovieDetail);

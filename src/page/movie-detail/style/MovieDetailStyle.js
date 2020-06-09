@@ -5,7 +5,26 @@ const styles = {
 		overflow: "auto",
 		padding: "0 3rem",
 	},
-
+	circularProgress: {
+		color: "#de8918",
+	},
+	progress: {
+		paddingTop: "5rem",
+		display: "flex",
+		justifyContent: "center",
+	},
+	alert: {
+		width: "100%",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: "1rem",
+	},
+	alertMessage: {
+		textAlign: "center",
+		fontSize: "1.5rem",
+		display: "inline-block",
+	},
 	footer: {
 		padding: "2rem",
 		color: "white",

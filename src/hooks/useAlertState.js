@@ -15,7 +15,7 @@ const useAlertState = (initialState) => {
 		}, timeInMillis);
 	};
 
-	return [alert, showAlertFor, hideAlert];
+	return [alert, showAlertFor, hideAlert, showAlert];
 };
 
 export default useAlertState;
