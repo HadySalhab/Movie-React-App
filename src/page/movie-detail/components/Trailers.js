@@ -10,6 +10,7 @@ const Trailers = ({ videos, classes }) => {
 			<div className={classes.trailers}>
 				{videos.slice(0, 4).map((video) => (
 					<a
+						key={video.key}
 						href={`https://www.youtube.com/watch?v=${video.key}`}
 						target="_blank"
 					>

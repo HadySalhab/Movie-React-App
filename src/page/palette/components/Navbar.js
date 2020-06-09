@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -10,7 +10,7 @@ const Navbar = (props) => {
 	const onSortChange = (event) => {
 		props.onSortChange(event.target.value);
 	};
-	const { title, sortBy, classes } = props;
+	const { sortBy, classes } = props;
 	return (
 		<nav className={classes.nav}>
 			<Link to="/">

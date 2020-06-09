@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import MiniMovie from "./MiniMovie";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";

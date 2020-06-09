@@ -12,7 +12,7 @@ const Casts = ({ visibleCast, classes }) => {
 			<h1>Top Cast</h1>
 			<div className={classes.casts}>
 				{visibleCast.map((cast) => (
-					<Card className={classes.card}>
+					<Card key={cast.id} className={classes.card}>
 						<CardMedia
 							component="img"
 							alt="Contemplative Reptile"

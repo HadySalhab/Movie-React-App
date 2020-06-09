@@ -11,7 +11,7 @@ const Reviews = ({ classes, reviews }) => {
 			<h1>Reviews</h1>
 			<div className={classes.reviews}>
 				{reviews.map((review) => (
-					<Card className={classes.reviewCard}>
+					<Card key={review.id} className={classes.reviewCard}>
 						<CardContent
 							classes={{
 								root: classes.reviewContent,

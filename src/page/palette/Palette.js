@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SnackbarMUI from "./components/SnackbarMUI";
 import MovieBox from "./components/MovieBox";
 import Navbar from "./components/Navbar";
