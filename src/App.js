@@ -6,6 +6,7 @@ import PaletteList from "./page/palette-list/PaletteList";
 import MovieDetail from "./page/movie-detail/MovieDetail";
 import NewPalette from "./page/new-palette/NewPalette";
 import "./App.css";
+import PalettesProvider from "./context/app/palettes.context";
 
 function App() {
 	return (
@@ -34,7 +35,11 @@ function App() {
 			<Route
 				exact
 				path="/"
-				render={(routeProps) => <PaletteList {...routeProps} />}
+				render={(routeProps) => (
+					<PalettesProvider>
+						<PaletteList {...routeProps} />
+					</PalettesProvider>
+				)}
 			/>
 			<Redirect to="/" />
 		</Switch>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import MiniMovie from "./MiniMovie";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,16 +13,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
 import { withStyles } from "@material-ui/styles";
+import { withRouter } from "react-router-dom";
 import styles from "../style/MiniPaletteStyle";
 import useDialog from "../../../hooks/useDialog";
+import { DispatchPalettesContext } from "../../../context/app/palettes.context";
 
 const MiniPalette = (props) => {
+	const { removePalette } = useContext(DispatchPalettesContext);
 	const onMiniPaletteClicked = (event) => {
-		props.onMiniPaletteClicked(props.id);
+		props.history.push(`/palette/${props.id}`);
 	};
-
 	const deletePalette = () => {
-		props.deletePalette(props.id);
+		removePalette(props.id);
 		hideDialog();
 	};
 	const { isOpen, showDialog, hideDialog } = useDialog();
@@ -75,4 +77,4 @@ const MiniPalette = (props) => {
 	);
 };
 
-export default withStyles(styles)(MiniPalette);
+export default withRouter(withStyles(styles)(MiniPalette));
