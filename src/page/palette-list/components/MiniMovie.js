@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
-import Constants from "../data/Constants";
+import Constants from "../../../data/Constants";
 const styles = {
 	root: {
 		height: "85px",

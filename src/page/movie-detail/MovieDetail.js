@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import tmdbClient from "../vo/TmdbClient";
-import stringHelper from "../vo/StringHelper";
+import tmdbClient from "../../vo/TmdbClient";
+import stringHelper from "../../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Card from "@material-ui/core/Card";
 import ReactPlayer from "react-player";
 import CardContent from "@material-ui/core/CardContent";
-import YoutubeBtn from "./YoutubeBtn";
+import YoutubeBtn from "./components/YoutubeBtn";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import "react-circular-progressbar/dist/styles.css";

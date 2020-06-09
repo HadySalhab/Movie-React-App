@@ -2,10 +2,10 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import PaletteFinder from "./vo/PaletteFinder";
 import Palette from "./page/palette/Palette";
-import PaletteList from "./components/PaletteList";
-import MovieDetail from "./components/MovieDetail";
+import PaletteList from "./page/palette-list/PaletteList";
+import MovieDetail from "./page/movie-detail/MovieDetail";
 import NewPalette from "./page/new-palette/NewPalette";
-import "./style/App.css";
+import "./App.css";
 
 function App() {
 	return (
