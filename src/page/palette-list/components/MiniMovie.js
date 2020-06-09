@@ -9,7 +9,7 @@ const MiniMovie = (props) => {
 	return (
 		<div
 			className={classes.root}
-			style={{ background: `url(${imageUrl}) center center/cover no-repeat` }}
+			style={{ background: `url(${imageUrl}) center top/cover no-repeat` }}
 		></div>
 	);
 };
