@@ -4,12 +4,12 @@ import stringHelper from "../../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import YoutubeBtn from "./components/YoutubeBtn";
-import CardMedia from "@material-ui/core/CardMedia";
+
 import Typography from "@material-ui/core/Typography";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./style/MovieDetailStyle";
 import Header from "./components/Header";
+import Trailers from "./components/Trailers";
 import Casts from "./components/Casts";
 
 class MovieDetail extends Component {
@@ -39,7 +39,6 @@ class MovieDetail extends Component {
 	render() {
 		const { movieDetail, loading } = this.state;
 		const { classes } = this.props;
-		const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 
 		if (!loading) {
 			const castArr = movieDetail.credits.cast;
@@ -56,36 +55,7 @@ class MovieDetail extends Component {
 							{visibleCast.length > 0 && <Casts visibleCast={visibleCast} />}
 
 							{movieDetail.videos.results.length > 0 && (
-								<section className={classes.trailerSection}>
-									<h1>Trailers</h1>
-									<div className={classes.trailers}>
-										{movieDetail.videos.results.slice(0, 4).map((video) => (
-											<div
-												style={{
-													position: "relative",
-												}}
-											>
-												<img
-													src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
-													style={{
-														width: "100%",
-													}}
-													alt=""
-												/>
-												<i
-													className="fab fa-youtube fa-7x"
-													style={{
-														position: "absolute",
-														top: "50%",
-														left: "50%",
-														transform: "translate(-50%,-50%)",
-														color: "#c4302b",
-													}}
-												></i>
-											</div>
-										))}
-									</div>
-								</section>
+								<Trailers videos={movieDetail.videos.results} />
 							)}
 
 							{movieDetail.reviews.results.length > 0 && (
