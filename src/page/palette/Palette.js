@@ -1,80 +1,64 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import SnackbarMUI from "./components/SnackbarMUI";
 import MovieBox from "./components/MovieBox";
 import Navbar from "./components/Navbar";
 import MovieSorter from "../../vo/MovieSorter";
 import stringHelper from "../../vo/StringHelper";
-import "../../style/Palette.css";
+import styles from "./style/PaletteStyle";
+import useSortState from "../../hooks/useSortState";
+import useSnackBarState from "../../hooks/useSnackBarState";
+import { withStyles } from "@material-ui/styles";
 
-class Palette extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			sortBy: "original",
-			isSnackbarOpen: false,
-		};
-		this.movieSorter = new MovieSorter(props.palette.movies);
-		this.onSortChange = this.onSortChange.bind(this);
-		this.closeSnackbar = this.closeSnackbar.bind(this);
-		this.onMovieBoxClicked = this.onMovieBoxClicked.bind(this);
-	}
-	onMovieBoxClicked(movieId, title) {
+const Palette = (props) => {
+	const onMovieBoxClicked = (movieId, title) => {
 		const noParentheses = stringHelper.removeParenthesesAndReturn(title);
 		const mMovieName = stringHelper.replaceWhiteSpacesWithDash(noParentheses);
+		props.history.push(`/movies/${movieId + "-" + mMovieName}`);
+	};
 
-		this.props.history.push(`/movies/${movieId + "-" + mMovieName}`);
-	}
-	closeSnackbar() {
-		this.setState({
-			isSnackbarOpen: false,
-		});
-	}
-	onSortChange(newSortBy) {
-		this.setState({
-			sortBy: newSortBy,
-			isSnackbarOpen: true,
-		});
-	}
-	render() {
-		const { sortBy, isSnackbarOpen } = this.state;
-		const { palette } = this.props;
-		const { paletteName, emoji } = palette;
-		const sortedMovies = this.movieSorter.sortMoviesBy(sortBy);
+	const [sortBy, updateSort] = useSortState("original");
+	const [isSnackBarOpen, openSnackBar, closeSnackBar] = useSnackBarState(false);
+	const onSortChange = (newSortBy) => {
+		updateSort(newSortBy);
+		openSnackBar();
+	};
 
-		const movieBoxes = sortedMovies.map((movie) => (
-			<MovieBox
-				key={movie.id}
-				id={movie.id}
-				title={movie.title}
-				date={movie.release_date}
-				poster_path={movie.poster_path}
-				onMovieBoxClicked={this.onMovieBoxClicked}
-			/>
-		));
-		return (
-			<div className="Palette">
-				<Navbar
-					title={paletteName}
-					onSortChange={this.onSortChange}
-					sortBy={sortBy}
-				/>
-				<div className="Palette__movies-wrapper">
-					<div className="Palette__movies">
-						<div className="Palette__drawer-header"></div>
-						{movieBoxes}
-					</div>
+	const movieSorter = new MovieSorter(props.palette.movies);
+	const { paletteName, emoji } = props.palette;
+	const { classes } = props;
+	const sortedMovies = movieSorter.sortMoviesBy(sortBy);
+
+	const movieBoxes = sortedMovies.map((movie) => (
+		<MovieBox
+			key={movie.id}
+			id={movie.id}
+			title={movie.title}
+			date={movie.release_date}
+			poster_path={movie.poster_path}
+			onMovieBoxClicked={onMovieBoxClicked}
+		/>
+	));
+
+	return (
+		<div className={classes.root}>
+			<Navbar title={paletteName} onSortChange={onSortChange} sortBy={sortBy} />
+			<div>
+				<div className={classes.movies}>
+					<div className={classes.drawerHead}></div>
+					{movieBoxes}
 				</div>
-				<footer className="Palette__footer">
-					{paletteName}
-					<span className="Palette__footer-emoji">{emoji}</span>
-				</footer>
-				<SnackbarMUI
-					sortBy={sortBy}
-					isSnackbarOpen={isSnackbarOpen}
-					closeSnackbar={this.closeSnackbar}
-				/>
 			</div>
-		);
-	}
-}
-export default Palette;
+			<footer className={classes.footer}>
+				{paletteName}
+				<span className={classes.footerEmoji}>{emoji}</span>
+			</footer>
+			<SnackbarMUI
+				sortBy={sortBy}
+				isSnackbarOpen={isSnackBarOpen}
+				closeSnackbar={closeSnackBar}
+			/>
+		</div>
+	);
+};
+
+export default withStyles(styles)(Palette);
