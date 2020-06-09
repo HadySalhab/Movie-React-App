@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import PaletteFinder from "./vo/PaletteFinder";
-import Palette from "./components/Palette";
+import Palette from "./page/palette/Palette";
 import PaletteList from "./components/PaletteList";
 import MovieDetail from "./components/MovieDetail";
 import NewPalette from "./page/new-palette/NewPalette";

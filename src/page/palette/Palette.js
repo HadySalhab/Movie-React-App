@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import SnackbarMUI from "./SnackbarMUI";
-import MovieBox from "./MovieBox";
-import Navbar from "../page/palette/components/Navbar";
-import MovieSorter from "../vo/MovieSorter";
-import stringHelper from "../vo/StringHelper";
-import "../style/Palette.css";
+import SnackbarMUI from "../../components/SnackbarMUI";
+import MovieBox from "./components/MovieBox";
+import Navbar from "./components/Navbar";
+import MovieSorter from "../../vo/MovieSorter";
+import stringHelper from "../../vo/StringHelper";
+import "../../style/Palette.css";
 
 class Palette extends Component {
 	constructor(props) {
