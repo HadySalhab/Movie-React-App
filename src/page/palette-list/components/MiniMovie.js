@@ -1,15 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
 import Constants from "../../../data/Constants";
-const styles = {
-	root: {
-		height: "85px",
-		width: "20%",
-		display: "inline-block",
-
-		position: "relative",
-	},
-};
+import styles from "../style/MiniMovieStyle";
 function MiniMovie(props) {
 	const { poster_path, classes } = props;
 	const imageUrl =
