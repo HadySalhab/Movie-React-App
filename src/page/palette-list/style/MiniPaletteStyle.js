@@ -10,7 +10,9 @@ const styles = {
 		display: "flex",
 		flexDirection: "column",
 	},
+
 	movies: {
+		flex: "1",
 		display: "flex",
 		justifyContent: "flex-start",
 		flexWrap: "wrap",
