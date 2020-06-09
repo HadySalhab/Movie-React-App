@@ -1,4 +1,6 @@
 import seedMovies from "../data/seedMovies";
+
+//Singleton: Global object that shares mutable state for all components.
 class PaletteFinder {
 	constructor() {
 		const localPalettes = JSON.parse(localStorage.getItem("palettes"));

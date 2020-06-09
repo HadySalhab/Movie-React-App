@@ -1,4 +1,5 @@
 import React from "react";
+
 import { withStyles } from "@material-ui/styles";
 import styles from "../style/TrailersStyle";
 
@@ -8,29 +9,34 @@ const Trailers = ({ videos, classes }) => {
 			<h1>Trailers</h1>
 			<div className={classes.trailers}>
 				{videos.slice(0, 4).map((video) => (
-					<div
-						style={{
-							position: "relative",
-						}}
+					<a
+						href={`https://www.youtube.com/watch?v=${video.key}`}
+						target="_blank"
 					>
-						<img
-							src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+						<div
 							style={{
-								width: "100%",
+								position: "relative",
 							}}
-							alt=""
-						/>
-						<i
-							className="fab fa-youtube fa-7x"
-							style={{
-								position: "absolute",
-								top: "50%",
-								left: "50%",
-								transform: "translate(-50%,-50%)",
-								color: "#c4302b",
-							}}
-						></i>
-					</div>
+						>
+							<img
+								src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+								style={{
+									width: "100%",
+								}}
+								alt=""
+							/>
+							<i
+								className="fab fa-youtube fa-7x"
+								style={{
+									position: "absolute",
+									top: "50%",
+									left: "50%",
+									transform: "translate(-50%,-50%)",
+									color: "#c4302b",
+								}}
+							></i>
+						</div>
+					</a>
 				))}
 			</div>
 		</section>
