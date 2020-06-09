@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SnackbarMUI from "../../components/SnackbarMUI";
+import SnackbarMUI from "./components/SnackbarMUI";
 import MovieBox from "./components/MovieBox";
 import Navbar from "./components/Navbar";
 import MovieSorter from "../../vo/MovieSorter";
