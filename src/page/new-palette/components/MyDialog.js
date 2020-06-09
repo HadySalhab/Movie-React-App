@@ -7,12 +7,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useForm } from "react-hook-form";
-import PaletteFinder from "../../../vo/PaletteFinder";
 import StringHelper from "../../../vo/StringHelper";
 import useStyles from "../style/MyDialogStyle";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-import { DispatchPalettesContext } from "../../../context/app/palettes.context";
+import {
+	DispatchPalettesContext,
+	PalettesContext,
+} from "../../../context/app/palettes.context";
 import useDialog from "../../../hooks/useDialog";
 
 function MyDialog(props) {
@@ -33,12 +35,15 @@ function MyDialog(props) {
 		errors,
 	} = useForm();
 	const { addPalette } = useContext(DispatchPalettesContext);
+	const palettes = useContext(PalettesContext);
 
 	const [input, setInput] = React.useState("");
 	const classes = useStyles();
 
 	const isPaletteNameUnique = (pName) => {
-		return PaletteFinder.isPaletteNameUnique(pName);
+		return !palettes.some((p) => {
+			return p.paletteName === pName;
+		});
 	};
 
 	const handleSubmit = async (e) => {

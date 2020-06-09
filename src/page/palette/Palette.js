@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import SnackbarMUI from "./components/SnackbarMUI";
 import MovieBox from "./components/MovieBox";
 import Navbar from "./components/Navbar";
@@ -8,8 +8,14 @@ import styles from "./style/PaletteStyle";
 import useSortState from "../../hooks/useSortState";
 import useSnackBarState from "../../hooks/useSnackBarState";
 import { withStyles } from "@material-ui/styles";
+import { PalettesContext } from "../../context/app/palettes.context";
 
 const Palette = (props) => {
+	const palettes = useContext(PalettesContext);
+	const palette = palettes.find((p) => {
+		return p.id === props.match.params.id;
+	});
+
 	const onMovieBoxClicked = (movieId, title) => {
 		const noParentheses = stringHelper.removeParenthesesAndReturn(title);
 		const mMovieName = stringHelper.replaceWhiteSpacesWithDash(noParentheses);
@@ -23,8 +29,9 @@ const Palette = (props) => {
 		openSnackBar();
 	};
 
-	const movieSorter = new MovieSorter(props.palette.movies);
-	const { paletteName, emoji } = props.palette;
+	const movieSorter = new MovieSorter(palette.movies);
+
+	const { paletteName, emoji } = palette;
 	const { classes } = props;
 	const sortedMovies = movieSorter.sortMoviesBy(sortBy);
 

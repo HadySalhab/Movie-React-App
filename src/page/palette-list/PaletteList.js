@@ -4,11 +4,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/styles";
 import styles from "./style/PaletteListStyle";
 import MiniPalette from "./components/MiniPalette";
-import paletteFinder from "../../vo/PaletteFinder";
-import {
-	DispatchPalettesContext,
-	PalettesContext,
-} from "../../context/app/palettes.context";
+import { PalettesContext } from "../../context/app/palettes.context";
 
 const PaletteList = (props) => {
 	const palettes = useContext(PalettesContext);

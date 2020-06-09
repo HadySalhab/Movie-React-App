@@ -1,6 +1,5 @@
 import React from "react";
 import StringHelper from "../../vo/StringHelper";
-import PaletteFinder from "../../vo/PaletteFinder";
 import MyAppBar from "./components/MyAppBar";
 import MyDrawer from "./components/MyDrawer";
 import MyMain from "./components/MyMain";
