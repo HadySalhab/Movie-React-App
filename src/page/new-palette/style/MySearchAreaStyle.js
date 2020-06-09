@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Constanst from "../../../data/Constants";
+import { DRAWER_WIDTH } from "../../../data/Constants";
 const useStyles = makeStyles((theme) => ({
 	form: {
 		width: "100%",
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `1rem calc(${Constanst.DRAWER_WIDTH}px*0.5 - 30rem*0.5)`,
+		padding: `1rem calc(${DRAWER_WIDTH}px*0.5 - 30rem*0.5)`,
 	},
 
 	searchArea: {

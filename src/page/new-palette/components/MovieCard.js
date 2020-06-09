@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Constants from "../../../data/Constants";
+import { IMAGE_W250 } from "../../../data/Constants";
 import useStyles from "../style/MovieCardStyle";
 export default function MovieCard(props) {
 	const { movie, type, learnMore, addOrRemove } = props;
@@ -23,10 +23,7 @@ export default function MovieCard(props) {
 	const handleAddOrRemove = () => {
 		addOrRemove(movie, type);
 	};
-	const imgUrl =
-		Constants.IMAGE_BASE_URL +
-		Constants.IMAGE_FILE_SIZE_W250 +
-		movie.poster_path;
+	const imgUrl = IMAGE_W250 + movie.poster_path;
 	return (
 		<Card className={classes.root}>
 			<CardMedia

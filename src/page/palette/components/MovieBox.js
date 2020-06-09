@@ -1,5 +1,5 @@
 import React from "react";
-import Constants from "../../../data/Constants";
+import { IMAGE_W185 } from "../../../data/Constants";
 import stringHelper from "../../../vo/StringHelper";
 import { withStyles } from "@material-ui/styles";
 import styles from "../style/MovieBoxStyle";
@@ -9,8 +9,7 @@ const MovieBox = (props) => {
 		props.onMovieBoxClicked(props.id, props.title);
 	};
 	const { title, poster_path, date, classes } = props;
-	const imageUrl =
-		Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE_W185 + poster_path;
+	const imageUrl = IMAGE_W185 + poster_path;
 	const transformedTitle = stringHelper.removeParenthesesAndReturn(title);
 
 	return (

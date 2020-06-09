@@ -1,11 +1,11 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
-import Constants from "../../../data/Constants";
+import { IMAGE_W185 } from "../../../data/Constants";
 import styles from "../style/MiniMovieStyle";
 const MiniMovie = (props) => {
 	const { poster_path, classes } = props;
-	const imageUrl =
-		Constants.IMAGE_BASE_URL + Constants.IMAGE_FILE_SIZE_W185 + poster_path;
+	const imageUrl = IMAGE_W185 + poster_path;
+	console.log(imageUrl);
 	return (
 		<div
 			className={classes.root}
