@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./style/MovieDetailStyle";
 import Header from "./components/Header";
+import Casts from "./components/Casts";
 
 class MovieDetail extends Component {
 	constructor(props) {
@@ -52,44 +53,7 @@ class MovieDetail extends Component {
 
 					<div>
 						<div className={classes.container}>
-							{visibleCast.length > 0 && (
-								<section className={classes.castSection}>
-									<h1>Top Cast</h1>
-									<div className={classes.casts}>
-										{visibleCast.map((cast) => (
-											<Card className={classes.card}>
-												<CardMedia
-													component="img"
-													alt="Contemplative Reptile"
-													height="140"
-													image={
-														IMAGE_BASE_URL +
-														"w276_and_h350_face/" +
-														cast.profile_path
-													}
-													title="Contemplative Reptile"
-												/>
-												<CardContent
-													classes={{
-														root: classes.cardContent,
-													}}
-												>
-													<Typography gutterBottom variant="h5" component="h2">
-														{cast.character}
-													</Typography>
-													<Typography
-														variant="body2"
-														color="textSecondary"
-														component="p"
-													>
-														{cast.name}
-													</Typography>
-												</CardContent>
-											</Card>
-										))}
-									</div>
-								</section>
-							)}
+							{visibleCast.length > 0 && <Casts visibleCast={visibleCast} />}
 
 							{movieDetail.videos.results.length > 0 && (
 								<section className={classes.trailerSection}>
