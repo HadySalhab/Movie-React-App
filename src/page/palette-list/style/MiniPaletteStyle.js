@@ -5,7 +5,6 @@ const styles = {
 		border: "1px solid black",
 		padding: "0.5rem",
 		position: "relative",
-		minHeight: "34rem",
 		overflow: "hidden",
 		display: "flex",
 		flexDirection: "column",
@@ -17,6 +16,7 @@ const styles = {
 		justifyContent: "flex-start",
 		flexWrap: "wrap",
 		width: "100%",
+		minHeight: "340px",
 		borderRadius: "5px",
 		overflow: "hidden",
 		"&:hover": {
