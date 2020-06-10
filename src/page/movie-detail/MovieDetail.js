@@ -9,9 +9,10 @@ import Trailers from "./components/Trailers";
 import Casts from "./components/Casts";
 import Reviews from "./components/Reviews";
 import Alert from "@material-ui/lab/Alert";
+import Navbar from "./components/Navbar";
 import { DetailContext } from "./context/detail.context";
 
-const MovieDetail = ({ classes, match }) => {
+const MovieDetail = ({ classes, match, history }) => {
 	const { detail, loading, alert, getMovie } = useContext(DetailContext);
 	useEffect(() => {
 		getMovie(
@@ -40,6 +41,7 @@ const MovieDetail = ({ classes, match }) => {
 			)}
 			{detail && (
 				<div className={classes.root}>
+					<Navbar history={history} />
 					<Header />
 
 					<div>
