@@ -12,7 +12,7 @@ import Alert from "@material-ui/lab/Alert";
 import Navbar from "./components/Navbar";
 import { DetailContext } from "./context/detail.context";
 
-const MovieDetail = ({ classes, match, history }) => {
+const MovieDetail = ({ classes, match, history, location }) => {
 	const { detail, loading, alert, getMovie } = useContext(DetailContext);
 	useEffect(() => {
 		getMovie(
@@ -41,7 +41,8 @@ const MovieDetail = ({ classes, match, history }) => {
 			)}
 			{detail && (
 				<div className={classes.root}>
-					<Navbar history={history} />
+					{history.length > 2 && <Navbar history={history} />}
+
 					<Header />
 
 					<div>

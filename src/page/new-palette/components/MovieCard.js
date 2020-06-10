@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import Alert from "@material-ui/lab/Alert";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -10,8 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import { IMAGE_W250 } from "../../../data/Constants";
 import useStyles from "../style/MovieCardStyle";
 import { DispatchNewContext, NewContext } from "../context/new.context";
+import stringHelper from "../../../vo/StringHelper";
 
-export default function MovieCard(props) {
+function MovieCard(props) {
 	const { movie, type } = props;
 	const { paletteMovies } = useContext(NewContext);
 	const { addMovie, removeMovie, showAlert, hideAlert } = useContext(
@@ -24,7 +23,11 @@ export default function MovieCard(props) {
 	}
 
 	const handleLearnMore = () => {
-		window.open(`/movies/${movie.id}`);
+		const noParentheses = stringHelper.removeParenthesesAndReturn(
+			movie.original_title
+		);
+		const mMovieName = stringHelper.replaceWhiteSpacesWithDash(noParentheses);
+		window.open(`/movies/${movie.id + "-" + mMovieName}`);
 	};
 	const handleAddOrRemove = () => {
 		if (type === "add") {
@@ -89,3 +92,4 @@ export default function MovieCard(props) {
 		</Card>
 	);
 }
+export default MovieCard;
