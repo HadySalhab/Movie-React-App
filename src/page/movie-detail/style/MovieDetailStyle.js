@@ -1,3 +1,4 @@
+import sizes from "../../../vo/sizes";
 const styles = {
 	container: {
 		maxWidth: "130rem",
@@ -41,6 +42,11 @@ const styles = {
 			color: "#D3D3D3",
 			textDecoration: "underline",
 		},
+		[sizes.down("xs")]: {
+			fontSize: "1.5rem",
+			padding: "1rem",
+		},
 	},
+	tmdb: {},
 };
 export default styles;

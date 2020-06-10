@@ -57,8 +57,12 @@ const MovieDetail = ({ classes, match, history, location }) => {
 						</div>
 					</div>
 					<footer className={classes.footer}>
-						Created By: Hadi Joseph Salheb for self-development purposes,&nbsp;
-						<a href="https://www.themoviedb.org/" target="_blank">
+						Created By: Hadi Salheb ,&nbsp;
+						<a
+							className={classes.tmdb}
+							href="https://www.themoviedb.org/"
+							target="_blank"
+						>
 							{" "}
 							Credit to TMDB Api.
 						</a>

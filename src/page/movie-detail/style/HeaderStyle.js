@@ -1,3 +1,4 @@
+import sizes from "../../../vo/sizes";
 const styles = {
 	header: {
 		color: "#D3D3D3",
@@ -6,9 +7,18 @@ const styles = {
 		display: "flex",
 		alignItems: "flex-end",
 		padding: "3rem",
+		[sizes.down("xs")]: {
+			padding: "1.5rem",
+		},
 	},
 	detail: {
 		display: "flex",
+		[sizes.down("xs")]: {
+			flexDirection: "column",
+			[sizes.down("xs")]: {
+				alignItems: "center",
+			},
+		},
 	},
 	posterContainer: {
 		borderRadius: "10px",
@@ -22,9 +32,15 @@ const styles = {
 		marginLeft: "2rem",
 		color: "white",
 		width: "50%",
+		[sizes.down("xs")]: {
+			width: "100%",
+		},
 		alignSelf: "center",
 		"& h2": {
 			fontSize: "4rem",
+			[sizes.down("xs")]: {
+				fontSize: "3rem",
+			},
 		},
 	},
 	facts: {
@@ -36,9 +52,11 @@ const styles = {
 		fontStyle: "italic",
 		fontSize: "1.8rem",
 	},
+	date: {
+		marginRight: "2rem",
+	},
 	genres: {
 		display: "inline-block",
-		marginLeft: "2rem",
 	},
 	overview: {
 		marginTop: "1rem",

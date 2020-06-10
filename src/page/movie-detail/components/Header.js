@@ -37,7 +37,7 @@ const Header = ({ classes }) => {
 				<div className={classes.summary}>
 					<h2>{detail.original_title}</h2>
 					<div className={classes.facts}>
-						<span>{detail.release_date}</span>
+						<span className={classes.date}>{detail.release_date}</span>
 						<span className={classes.genres}>
 							&bull;
 							{genreName.map((g, index) => {
