@@ -8,8 +8,9 @@ const styles = {
 		padding: "2rem 0rem",
 	},
 	container: {
-		width: "50%",
+		width: "110rem",
 		display: "flex",
+		padding: "0rem 2rem",
 		alignItems: "flex-start",
 		flexDirection: "column",
 		flexWrap: "wrap",
@@ -21,6 +22,7 @@ const styles = {
 		justifyContent: "space-between",
 		color: "white",
 		alignItems: "center",
+		gridColumn: "1/-1",
 		"& h1": {
 			textAlign: "center",
 			fontSize: "3rem",
@@ -36,7 +38,7 @@ const styles = {
 	},
 	palettes: {
 		display: "grid",
-		gridTemplateColumns: "repeat(3,30%)",
+		gridTemplateColumns: "repeat(auto-fit,minmax(25rem,1fr))",
 		gridGap: "5%",
 		width: "100%",
 	},

@@ -13,19 +13,20 @@ const PaletteList = (props) => {
 	return (
 		<div className={classes.root}>
 			<div className={classes.container}>
-				<nav className={classes.nav}>
-					<h1>Movies Palette List</h1>
-					<Link to="/palette/new">
-						<Button
-							className={classes.createBtn}
-							variant="contained"
-							color="secondary"
-						>
-							Create Palette
-						</Button>
-					</Link>
-				</nav>
 				<div className={classes.palettes}>
+					<nav className={classes.nav}>
+						<h1>Movies Palette List</h1>
+						<Link to="/palette/new">
+							<Button
+								className={classes.createBtn}
+								variant="contained"
+								color="secondary"
+							>
+								Create Palette
+							</Button>
+						</Link>
+					</nav>
+
 					{palettes.map((palette) => (
 						<MiniPalette {...palette} key={palette.id} />
 					))}
