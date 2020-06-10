@@ -1,4 +1,5 @@
-export const DRAWER_WIDTH = 450;
+export const DRAWER_WIDTH = 300;
+export const DRAWER_WIDTH_LARGE = 450;
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 const IMAGE_FILE_SIZE_W185 = "w185";
 const IMAGE_FILE_SIZE_W250 = "w250_and_h141_face";

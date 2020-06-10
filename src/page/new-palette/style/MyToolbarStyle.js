@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import sizes from "../../../vo/sizes";
 const useStyles = makeStyles((theme) => ({
 	toolbarRoot: {
 		backgroundColor: "#282c34",
@@ -18,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "space-between",
 		alignItems: "center",
 		width: "100%",
+		[sizes.down("sm")]: {
+			justifyContent: "flex-end",
+		},
+	},
+	title: {
+		[sizes.down("sm")]: {
+			display: "none",
+		},
 	},
 	toolbarBtnsContainer: {
 		display: "flex",

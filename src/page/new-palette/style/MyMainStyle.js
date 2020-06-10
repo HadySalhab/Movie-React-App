@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { DRAWER_WIDTH } from "../../../data/Constants";
+import sizes from "../../../vo/sizes";
+import { DRAWER_WIDTH, DRAWER_WIDTH_LARGE } from "../../../data/Constants";
 const useStyles = makeStyles((theme) => ({
 	drawerHeader: {
 		display: "flex",
@@ -17,9 +18,16 @@ const useStyles = makeStyles((theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		marginLeft: -DRAWER_WIDTH,
+		marginLeft: -DRAWER_WIDTH_LARGE,
+		[sizes.down("lg")]: {
+			marginLeft: -DRAWER_WIDTH,
+		},
 		display: "grid",
 		gridTemplateColumns: "repeat(auto-fit,minmax(22rem,1fr))",
+		[sizes.down("xs")]: {
+			gridTemplateColumns: "30rem",
+			justifyContent: "center",
+		},
 		gridColumnGap: "1rem",
 		justifyItems: "center",
 	},

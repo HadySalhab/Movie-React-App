@@ -1,12 +1,19 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { DRAWER_WIDTH } from "../../../data/Constants";
+import { DRAWER_WIDTH, DRAWER_WIDTH_LARGE } from "../../../data/Constants";
+import sizes from "../../../vo/sizes";
 const useStyles = makeStyles((theme) => ({
 	drawer: {
-		width: DRAWER_WIDTH,
+		width: DRAWER_WIDTH_LARGE,
+		[sizes.down("lg")]: {
+			width: DRAWER_WIDTH,
+		},
 		flexShrink: 0,
 	},
 	drawerPaper: {
-		width: DRAWER_WIDTH,
+		width: DRAWER_WIDTH_LARGE,
+		[sizes.down("lg")]: {
+			width: DRAWER_WIDTH,
+		},
 	},
 	drawerHeader: {
 		display: "flex",

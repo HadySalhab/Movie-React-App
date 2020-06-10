@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { DRAWER_WIDTH } from "../../../data/Constants";
+import { DRAWER_WIDTH, DRAWER_WIDTH_LARGE } from "../../../data/Constants";
+import sizes from "../../../vo/sizes";
 const useStyles = makeStyles((theme) => ({
 	form: {
 		width: "100%",
@@ -14,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `1rem calc(${DRAWER_WIDTH}px*0.5 - 30rem*0.5)`,
+		padding: `1rem calc(${DRAWER_WIDTH_LARGE}px*0.5 - 30rem*0.5)`,
+		[sizes.down("lg")]: {
+			padding: `1rem calc(${DRAWER_WIDTH}px*0.5 - 30rem*0.5)`,
+		},
 	},
 
 	searchArea: {
@@ -25,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
 		paddingTop: "2rem",
 		"&>h2": {
 			textAlign: "center",
+			[sizes.down("lg")]: {
+				fontSize: "2.5rem",
+			},
 		},
 	},
 	btnContainer: {

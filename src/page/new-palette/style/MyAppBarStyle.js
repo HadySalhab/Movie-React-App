@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { DRAWER_WIDTH } from "../../../data/Constants";
+import sizes from "../../../vo/sizes";
+import { DRAWER_WIDTH, DRAWER_WIDTH_LARGE } from "../../../data/Constants";
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		transition: theme.transitions.create(["margin", "width"], {
@@ -8,7 +9,10 @@ const useStyles = makeStyles((theme) => ({
 		}),
 	},
 	appBarShift: {
-		width: `calc(100% - ${DRAWER_WIDTH}px)`,
+		width: `calc(100% - ${DRAWER_WIDTH_LARGE}px)`,
+		[sizes.down("lg")]: {
+			width: `calc(100% - ${DRAWER_WIDTH}px)`,
+		},
 		marginLeft: DRAWER_WIDTH,
 		transition: theme.transitions.create(["margin", "width"], {
 			easing: theme.transitions.easing.easeOut,

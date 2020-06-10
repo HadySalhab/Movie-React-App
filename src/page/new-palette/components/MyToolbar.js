@@ -31,7 +31,13 @@ function MyToolbar() {
 				<MenuIcon />
 			</IconButton>
 			<div className={classes.toolbarContainer}>
-				<Typography variant="h5" noWrap>
+				<Typography
+					variant="h5"
+					noWrap
+					classes={{
+						root: classes.title,
+					}}
+				>
 					New Movie Palette
 				</Typography>
 
